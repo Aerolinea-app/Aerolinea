@@ -5,10 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AerolineaApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AerolineaApplication.class, args);
-		System.out.println("Hello World");
+		System.out.println("Server Activo :D");
 	}
 
 }

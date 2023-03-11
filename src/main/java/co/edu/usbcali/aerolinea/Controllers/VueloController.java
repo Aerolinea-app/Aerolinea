@@ -1,8 +1,8 @@
 package co.edu.usbcali.aerolinea.Controllers;
 
 import co.edu.usbcali.aerolinea.DTO.MensajeDTO;
-import co.edu.usbcali.aerolinea.DTO.vueloDTO;
-import co.edu.usbcali.aerolinea.services.VueloService;
+import co.edu.usbcali.aerolinea.DTO.VueloDTO;
+import co.edu.usbcali.aerolinea.services.Interfaces.VueloService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +20,19 @@ public class VueloController{
     }
 
     @GetMapping("/obtenerVuelo")
-    public ResponseEntity<vueloDTO> obtenerVuelo() {
+    public ResponseEntity<VueloDTO> obtenerVuelo() {
         return new ResponseEntity(vueloService.obtenerVuelo(), HttpStatus.OK);
     }
 
     @GetMapping("/obtenerVuelos")
-    public ResponseEntity<List<vueloDTO>> obtenerVuelos() {
+    public ResponseEntity<List<VueloDTO>> obtenerVuelos() {
         return new ResponseEntity(vueloService.obtenerVuelos(), HttpStatus.OK);
     }
 
     @PostMapping(path = "/guardarVuelo",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity guardarVuelo(@RequestBody vueloDTO vuelDTO) {
+    public ResponseEntity guardarVuelo(@RequestBody VueloDTO vuelDTO) {
         try {
             return new ResponseEntity(vueloService.guardarVuelo(vuelDTO), HttpStatus.OK);
         } catch (Exception e) {

@@ -11,9 +11,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class vueloDTO {
+public class VueloDTO {
     private String origen;
     private String destino;
+    private Integer precio;
     private Date fechaHoraSalida;
     private Date fechaHoraLlegada;
     private String id;
