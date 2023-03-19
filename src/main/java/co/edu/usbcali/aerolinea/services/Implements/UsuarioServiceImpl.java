@@ -1,64 +1,59 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
-import co.edu.usbcali.aerolinea.DTO.AvionDTO;
-import co.edu.usbcali.aerolinea.DTO.UsuarioDTO;
+import co.edu.usbcali.aerolinea.domain.Usuario;
+import co.edu.usbcali.aerolinea.dto.UsuarioDTO;
+import co.edu.usbcali.aerolinea.mappers.UsuarioMapper;
+import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.UsuarioService;
+
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UsuarioServiceImpl implements UsuarioService {
-
-    ArrayList usuarios = new ArrayList();
-
-    UsuarioDTO usuario1 = UsuarioDTO.builder().nombre("Laura Sofia").cedula("1183522").correo("laura739@gmail.com").build();
-    UsuarioDTO usuario2 = new UsuarioDTO("Valeria Giraldo","2672528","vale.2639@gmail.com");
-    UsuarioDTO usuario3 = new UsuarioDTO("Arturo Barona","86465274","baro.13@gmail.com");
-    UsuarioDTO usuario4 = new UsuarioDTO("Paola Garcia","875242","paoGar@gmail.com");
-
+    private final UsuarioRepository usuarioRepository;
+    private final ModelMapper modelMapper;
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, ModelMapper modelMapper) {
+        this.usuarioRepository = usuarioRepository;
+        this.modelMapper = modelMapper;
+    }
     @Override
     public UsuarioDTO agregarUsuario(UsuarioDTO usuarioDTO) throws Exception {
-
-        if (usuarioDTO == null){
+        if (usuarioDTO == null) {
             throw new Exception("El usuario es invalido!");
         }
-        if (usuarioDTO.getNombre() == null ){
+        if (usuarioDTO.getCedula() == null || usuarioDTO.getCedula().isBlank() || usuarioDTO.getNombre().trim().isEmpty()) {
+            throw new Exception("La cédula del usuario es invalida!");
+        }
+        if (usuarioDTO.getNombre() == null || usuarioDTO.getNombre().isBlank() || usuarioDTO.getNombre().trim().isEmpty()) {
             throw new Exception("El nombre del usuario es invalido!");
         }
-        if (usuarioDTO.getNombre() == "" ){
-            throw new Exception("El nombre del usuario es invalido!");
+        if (usuarioDTO.getApellido() == null || usuarioDTO.getApellido().isBlank() || usuarioDTO.getApellido().trim().isEmpty()) {
+            throw new Exception("El apellido del usuario es invalido!");
         }
-        if (usuarioDTO.getCedula() == null){
-            throw new Exception("La cedula del usuario es invalida!");
-        }
-        if (usuarioDTO.getCedula() == ""){
-            throw new Exception("La cedula del usuario es invalida!");
-        }
-        if (usuarioDTO.getCorreo() == null){
+        if (usuarioDTO.getCorreo() == null || usuarioDTO.getCorreo().isBlank() || usuarioDTO.getCorreo().trim().isEmpty()) {
             throw new Exception("El correo del usuario es invalido!");
         }
-        if (usuarioDTO.getCorreo() == ""){
-            throw new Exception("El correo del usuario es invalido!");
+        if (usuarioDTO.getEstado() == null || usuarioDTO.getEstado().isBlank() || usuarioDTO.getEstado().trim().isEmpty()) {
+            throw new Exception("El estado del usuario es invalido!");
         }
-
-        return usuarioDTO;
+        Usuario usuario = UsuarioMapper.dtoToDomain(usuarioDTO);
+        return UsuarioMapper.domainToDTO(usuarioRepository.save(usuario));
     }
-
     @Override
     public List<UsuarioDTO> obtenerUsuarios() {
-
-        usuarios.add(usuario1);
-        usuarios.add(usuario2);
-        usuarios.add(usuario3);
-        usuarios.add(usuario4);
-
-        return usuarios;
+        return UsuarioMapper.domainToDTOList(usuarioRepository.findAll());
     }
-
     @Override
-    public UsuarioDTO obtenerUsuario() {
-        return usuario1;
+    public UsuarioDTO obtenerUsuario(Integer id) throws Exception {
+        if (usuarioRepository.findById(Long.valueOf(id)).isEmpty()) {
+            throw new Exception("El id " + id + " no corresponde a ningun usuario!");
+        }
+
+        return UsuarioMapper.domainToDTO(usuarioRepository.findById(Long.valueOf(id)).get());
     }
 }

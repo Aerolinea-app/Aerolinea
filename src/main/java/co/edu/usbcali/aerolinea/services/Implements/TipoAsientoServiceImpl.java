@@ -1,0 +1,48 @@
+package co.edu.usbcali.aerolinea.services.Implements;
+
+import co.edu.usbcali.aerolinea.domain.TipoAsiento;
+import co.edu.usbcali.aerolinea.dto.TipoAsientoDTO;
+import co.edu.usbcali.aerolinea.mappers.TipoAsientoMapper;
+import co.edu.usbcali.aerolinea.repository.TipoAsientoRepository;
+import co.edu.usbcali.aerolinea.services.Interfaces.TipoAsientoService;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@Slf4j
+public class TipoAsientoServiceImpl implements TipoAsientoService {
+    private final TipoAsientoRepository tipoAsientoService;
+    private final ModelMapper modelMapper;
+    public TipoAsientoServiceImpl(TipoAsientoRepository tipoAsientoService, ModelMapper modelMapper) {
+        this.tipoAsientoService = tipoAsientoService;
+        this.modelMapper = modelMapper;
+    }
+    @Override
+    public List<TipoAsientoDTO> obtenerTipoAsientos() {
+        return TipoAsientoMapper.domainToDTOList(tipoAsientoService.findAll());
+    }
+    @Override
+    public TipoAsientoDTO agregarTipoAsiento(TipoAsientoDTO tipoAsientoDTO) throws Exception {
+        if (tipoAsientoDTO == null) {
+            throw new Exception("El tipo de asiento es invalido!");
+        }
+        if (tipoAsientoDTO.getDescripcion() == null || tipoAsientoDTO.getDescripcion().isBlank() || tipoAsientoDTO.getDescripcion().trim().isEmpty()) {
+            throw new Exception("La descripción del tipo de asiento es invalida!");
+        }
+        if (tipoAsientoDTO.getEstado() == null || tipoAsientoDTO.getEstado().isBlank() || tipoAsientoDTO.getEstado().trim().isEmpty()) {
+            throw new Exception("El estado del tipo de asiento es invalido!");
+        }
+        TipoAsiento tipoAsiento = TipoAsientoMapper.dtoToDomain(tipoAsientoDTO);
+        return TipoAsientoMapper.domainToDTO(tipoAsientoService.save(tipoAsiento));
+    }
+    @Override
+    public TipoAsientoDTO obtenerTipoAsiento(Integer id) throws Exception {
+        if (tipoAsientoService.findById(Long.valueOf(id)).isEmpty()) {
+            throw new Exception("El id " + id + " no corresponde a ningun tipo de asiento!");
+        }
+        return TipoAsientoMapper.domainToDTO(tipoAsientoService.findById(Long.valueOf(id)).get());
+    }
+}
