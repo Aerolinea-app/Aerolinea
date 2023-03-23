@@ -24,11 +24,11 @@ public class Trayecto {
     @JoinColumn(name = "id_avion", referencedColumnName = "id_avion")
     private Avion idAvion;
     @ManyToOne
-    @JoinColumn(name = "id_aeropuerto_origen", referencedColumnName = "id_aeropuerto")
-    private Aeropuerto aeropuertoOrigen;
-    @ManyToOne
     @JoinColumn(name = "id_aeropuerto_destino", referencedColumnName = "id_aeropuerto")
     private Aeropuerto aeropuertoDestino;
+    @ManyToOne
+    @JoinColumn(name = "id_aeropuerto_origen", referencedColumnName = "id_aeropuerto")
+    private Aeropuerto aeropuertoOrigen;
     @Column(name = "hora_salida", nullable = false)
     private Date horaSalida;
     @Column(name = "hora_llegada", nullable = false)

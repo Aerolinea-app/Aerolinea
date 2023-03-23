@@ -54,15 +54,18 @@ public class VueloServicelmpl implements VueloService {
         if (vueloDTO.getEstado() == null || vueloDTO.getEstado().isBlank() || vueloDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado del vuelo es invalido!");
         }
+        if(vueloRepository.findById(vueloDTO.getIdVuelo()).isPresent()){
+            throw new Exception("Ya existe el id del vuelo!");
+        }
         Vuelo vuelo = VueloMapper.dtoToDomain(vueloDTO);
         return VueloMapper.domainToDTO(vueloRepository.save(vuelo));
     }
 
     @Override
     public VueloDTO obtenerVuelo(Integer id) throws Exception {
-        if (vueloRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (vueloRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun vuelo!");
         }
-        return VueloMapper.domainToDTO(vueloRepository.findById(Long.valueOf(id)).get());
+        return VueloMapper.domainToDTO(vueloRepository.findById(id).get());
     }
 }

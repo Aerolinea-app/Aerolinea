@@ -28,21 +28,27 @@ public class AsientoServiceImpl implements AsientoService {
     }
     @Override
     public AsientoDTO obtenerAsiento(Integer id) throws Exception {
-        if (asientoRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (asientoRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun asiento!");
         }
-        return AsientoMapper.domainToDTO(asientoRepository.findById(Long.valueOf(id)).get());
+        return AsientoMapper.domainToDTO(asientoRepository.findById(id).get());
     }
     @Override
     public AsientoDTO agregarAsiento(AsientoDTO asientoDTO) throws Exception {
         if (asientoDTO == null) {
             throw new Exception("El asiento es nulo!");
-        } if (asientoDTO.getUbicacion() == null || asientoDTO.getUbicacion().isBlank() || asientoDTO.getUbicacion().trim().isEmpty()) {
+        }
+        if (asientoDTO.getUbicacion() == null || asientoDTO.getUbicacion().isBlank() || asientoDTO.getUbicacion().trim().isEmpty()) {
             throw new Exception("La ubicación del asiento es invalido!");
-        } if (asientoDTO.getPrecio() < 0) {
+        }
+        if (asientoDTO.getPrecio() < 0) {
             throw new Exception("El precio del asiento debe ser negativo!");
-        } if (asientoDTO.getEstado() == null || asientoDTO.getEstado().isBlank() || asientoDTO.getEstado().trim().isEmpty()) {
+        }
+        if (asientoDTO.getEstado() == null || asientoDTO.getEstado().isBlank() || asientoDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado del asiento es invalido!");
+        }
+        if(asientoRepository.findById(asientoDTO.getIdAsiento()).isPresent()){
+            throw new Exception("Ya existe el id del asiento!");
         }
         Asiento asiento = AsientoMapper.dtoToDomain(asientoDTO);
         return AsientoMapper.domainToDTO(asientoRepository.save(asiento));

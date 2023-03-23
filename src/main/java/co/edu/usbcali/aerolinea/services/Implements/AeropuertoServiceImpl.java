@@ -22,24 +22,31 @@ public class AeropuertoServiceImpl implements AeropuertoService {
     public AeropuertoDTO agregarAeropuerto(AeropuertoDTO aeropuertoDTO) throws Exception {
         if (aeropuertoDTO == null) {
             throw new Exception("El aeropuerto no puede ser nulo");
-        } if (aeropuertoDTO.getNombre() == null || aeropuertoDTO.getNombre().isBlank() || aeropuertoDTO.getNombre().trim().isEmpty()) {
+        }
+        if (aeropuertoDTO.getNombre() == null || aeropuertoDTO.getNombre().isBlank() || aeropuertoDTO.getNombre().trim().isEmpty()) {
             throw new Exception("El nombre del aeropuerto es invalido!");
-        } if (aeropuertoDTO.getIata() == null || aeropuertoDTO.getIata().isBlank() || aeropuertoDTO.getIata().trim().isEmpty()) {
+        }
+        if (aeropuertoDTO.getIata() == null || aeropuertoDTO.getIata().isBlank() || aeropuertoDTO.getIata().trim().isEmpty()) {
             throw new Exception("El IATA es invalido!");
-        } if (aeropuertoDTO.getUbicacion() == null || aeropuertoDTO.getUbicacion().isBlank() || aeropuertoDTO.getUbicacion().trim().isEmpty()) {
+        }
+        if (aeropuertoDTO.getUbicacion() == null || aeropuertoDTO.getUbicacion().isBlank() || aeropuertoDTO.getUbicacion().trim().isEmpty()) {
             throw new Exception("La ubicación es invalida!");
-        } if (aeropuertoDTO.getEstado() == null || aeropuertoDTO.getEstado().isBlank() || aeropuertoDTO.getEstado().trim().isEmpty()) {
+        }
+        if (aeropuertoDTO.getEstado() == null || aeropuertoDTO.getEstado().isBlank() || aeropuertoDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado es invalido!");
+        }
+        if(aeropuertoRepository.findById(aeropuertoDTO.getIdAeropuerto()).isPresent()){
+            throw new Exception("Ya existe el id del aeropuerto!");
         }
         Aeropuerto aeropuerto = AeropuertoMapper.dtoToDomain(aeropuertoDTO);
         return AeropuertoMapper.domainToDTO(aeropuertoRepository.save(aeropuerto));
     }
     @Override
     public AeropuertoDTO obtenerAeropuerto(Integer id) throws Exception {
-        if (aeropuertoRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (aeropuertoRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun aeropuerto!");
         }
-        return AeropuertoMapper.domainToDTO(aeropuertoRepository.findById(Long.valueOf(id)).get());
+        return AeropuertoMapper.domainToDTO(aeropuertoRepository.findById(id).get());
     }
     @Override
     public List<AeropuertoDTO> obtenerAeropuertos() {

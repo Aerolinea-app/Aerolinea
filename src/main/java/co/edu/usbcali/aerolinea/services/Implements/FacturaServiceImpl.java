@@ -27,10 +27,10 @@ public class FacturaServiceImpl implements FacturaService {
     }
     @Override
     public FacturaDTO obtenerFactura(Integer id) throws Exception {
-        if (facturaRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (facturaRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ninguna factura");
         }
-        return FacturaMapper.domainToDTO(facturaRepository.findById(Long.valueOf(id)).get());
+        return FacturaMapper.domainToDTO(facturaRepository.findById(id).get());
     }
     @Override
     public FacturaDTO agregarFactura(FacturaDTO facturaDTO) throws Exception {
@@ -42,6 +42,9 @@ public class FacturaServiceImpl implements FacturaService {
         }
         if (facturaDTO.getEstado() == null || facturaDTO.getEstado().isBlank() || facturaDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado es invalido!");
+        }
+        if(facturaRepository.findById(facturaDTO.getIdFactura()).isPresent()){
+            throw new Exception("Ya existe el id de la factura!");
         }
         Factura factura = FacturaMapper.dtoToDomain(facturaDTO);
         return FacturaMapper.domainToDTO(facturaRepository.save(factura));

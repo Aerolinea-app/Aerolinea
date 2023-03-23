@@ -22,10 +22,10 @@ public class Vuelo {
     @Column(name = "id_vuelo", nullable = false, unique = true)
     private Integer idVuelo;
     @ManyToOne
-    @JoinColumn(name = "id_aeropuerto_origen", referencedColumnName = "id_aeropuerto_origen")
+    @JoinColumn(name = "id_aeropuerto_origen", referencedColumnName = "id_aeropuerto")
     private Aeropuerto idAeropuertoOrigen;
     @ManyToOne
-    @JoinColumn(name = "id_aeropuerto_destino", referencedColumnName = "id_aeropuerto_destino")
+    @JoinColumn(name = "id_aeropuerto_destino", referencedColumnName = "id_aeropuerto")
     private Aeropuerto idAeropuertoDestino;
     @Column(name = "precio", nullable = false)
     private long precio;

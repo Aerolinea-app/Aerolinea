@@ -35,14 +35,17 @@ public class TipoAsientoServiceImpl implements TipoAsientoService {
         if (tipoAsientoDTO.getEstado() == null || tipoAsientoDTO.getEstado().isBlank() || tipoAsientoDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado del tipo de asiento es invalido!");
         }
+        if(tipoAsientoService.findById(tipoAsientoDTO.getIdTipoa()).isPresent()){
+            throw new Exception("Ya existe el id del asiento!");
+        }
         TipoAsiento tipoAsiento = TipoAsientoMapper.dtoToDomain(tipoAsientoDTO);
         return TipoAsientoMapper.domainToDTO(tipoAsientoService.save(tipoAsiento));
     }
     @Override
     public TipoAsientoDTO obtenerTipoAsiento(Integer id) throws Exception {
-        if (tipoAsientoService.findById(Long.valueOf(id)).isEmpty()) {
+        if (tipoAsientoService.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun tipo de asiento!");
         }
-        return TipoAsientoMapper.domainToDTO(tipoAsientoService.findById(Long.valueOf(id)).get());
+        return TipoAsientoMapper.domainToDTO(tipoAsientoService.findById(id).get());
     }
 }

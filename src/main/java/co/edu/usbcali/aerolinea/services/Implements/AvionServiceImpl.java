@@ -26,10 +26,10 @@ public class AvionServiceImpl implements AvionService {
     }
     @Override
     public AvionDTO obtenerAvion(Integer id) throws Exception {
-        if (avionRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (avionRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun avion!");
         }
-        return AvionMapper.domainToDTO(avionRepository.findById(Long.valueOf(id)).get());
+        return AvionMapper.domainToDTO(avionRepository.findById(id).get());
     }
     @Override
     public AvionDTO agregarAvion(AvionDTO avionDTO) throws Exception {
@@ -41,6 +41,9 @@ public class AvionServiceImpl implements AvionService {
         }
         if (avionDTO.getEstado() == null || avionDTO.getEstado().isBlank() || avionDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado es invalido!");
+        }
+        if(avionRepository.findById(avionDTO.getIdAvion()).isPresent()){
+            throw new Exception("Ya existe el id del avion!");
         }
         Avion avion = AvionMapper.dtoToDomain(avionDTO);
         return AvionMapper.domainToDTO(avionRepository.save(avion));

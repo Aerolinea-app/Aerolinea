@@ -21,16 +21,12 @@ public class Aeropuerto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aeropuerto", nullable = false, unique = true)
     private Integer idAeropuerto;
-
     @Column(name = "nombre", nullable = false, length = 80)
     private String nombre;
-
     @Column(name = "iata", nullable = false, length = 5)
     private String iata;
-
     @Column(name = "ubicacion", nullable = false, length = 80)
     private String ubicacion;
-
     @Column(name = "estado", nullable = false, length = 1)
     private String estado;
 

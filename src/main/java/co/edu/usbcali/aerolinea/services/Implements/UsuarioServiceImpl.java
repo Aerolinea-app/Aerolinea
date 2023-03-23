@@ -41,6 +41,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuarioDTO.getEstado() == null || usuarioDTO.getEstado().isBlank() || usuarioDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado del usuario es invalido!");
         }
+        if(usuarioRepository.findById(usuarioDTO.getIdUsuario()).isPresent()){
+            throw new Exception("Ya existe el id del usuario!");
+        }
         Usuario usuario = UsuarioMapper.dtoToDomain(usuarioDTO);
         return UsuarioMapper.domainToDTO(usuarioRepository.save(usuario));
     }
@@ -50,10 +53,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     @Override
     public UsuarioDTO obtenerUsuario(Integer id) throws Exception {
-        if (usuarioRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (usuarioRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun usuario!");
         }
 
-        return UsuarioMapper.domainToDTO(usuarioRepository.findById(Long.valueOf(id)).get());
+        return UsuarioMapper.domainToDTO(usuarioRepository.findById(id).get());
     }
 }

@@ -28,10 +28,10 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
     }
     @Override
     public RolUsuarioDTO obtenerRolUsuario(Integer id) throws Exception {
-        if (rolUsuarioRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (rolUsuarioRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun usuario!");
         }
-        return RolUsuarioMapper.domainToDto(rolUsuarioRepository.findById(Long.valueOf(id)).get());
+        return RolUsuarioMapper.domainToDto(rolUsuarioRepository.findById(id).get());
     }
     @Override
     public RolUsuarioDTO guardarRolUsuario(RolUsuarioDTO rolUsuarioDTO) throws Exception {
@@ -47,9 +47,10 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
         if( rolUsuarioDTO.getEstado() == null || rolUsuarioDTO.getEstado().trim().isEmpty()){
             throw new Exception("El estado es invalido");
         }
-        if(rolUsuarioRepository.findById(Long.valueOf(rolUsuarioDTO.getIdRolusuario())).isPresent()){
-            throw new Exception("Ya existe el usuario!");
+        if(rolUsuarioRepository.findById(rolUsuarioDTO.getIdRolusuario()).isPresent()){
+            throw new Exception("Ya existe el id del usuario!");
         }
+
         RolUsuario rolUsuario = RolUsuarioMapper.dtoToDomain((rolUsuarioDTO));
         return RolUsuarioMapper.domainToDto(rolUsuarioRepository.save(rolUsuario));
     }

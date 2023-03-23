@@ -26,23 +26,30 @@ public class ReservaServiceImpl implements ReservaService {
     }
     @Override
     public ReservaDTO obtenerReserva(Integer id) throws Exception {
-        if (reservaRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (reservaRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ninguna reserva!");
         }
-        return ReservaMapper.domainToDTO(reservaRepository.findById(Long.valueOf(id)).get());
+        return ReservaMapper.domainToDTO(reservaRepository.findById(id).get());
     }
     @Override
     public ReservaDTO agregarReserva(ReservaDTO reservaDTO) throws Exception {
         if (reservaDTO == null) {
             throw new Exception("La reserva es invalida!");
-        } if (reservaDTO.getPrecioTotal() < 0) {
+        }
+        if (reservaDTO.getPrecioTotal() < 0) {
             throw new Exception("El precio de la reserva no puede ser negativo!");
-        } if (reservaDTO.getEstadoPago() == null || reservaDTO.getEstadoPago().isBlank() || reservaDTO.getEstadoPago().trim().isEmpty()) {
+        }
+        if (reservaDTO.getEstadoPago() == null || reservaDTO.getEstadoPago().isBlank() || reservaDTO.getEstadoPago().trim().isEmpty()) {
             throw new Exception("El estado de pago de la reserva es invalido!");
-        } if (reservaDTO.getFecha() == null) {
+        }
+        if (reservaDTO.getFecha() == null) {
             throw new Exception("La fecha de la reserva es invalida!");
-        } if (reservaDTO.getEstado() == null || reservaDTO.getEstado().isBlank() || reservaDTO.getEstado().trim().isEmpty()) {
+        }
+        if (reservaDTO.getEstado() == null || reservaDTO.getEstado().isBlank() || reservaDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado de la reserva es invalido!");
+        }
+        if(reservaRepository.findById(reservaDTO.getIdReserva()).isPresent()){
+            throw new Exception("Ya existe el id de la reserva!");
         }
         Reserva reserva = ReservaMapper.dtoToDomain(reservaDTO);
         return ReservaMapper.domainToDTO(reservaRepository.save(reserva));

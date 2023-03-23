@@ -22,10 +22,10 @@ public class TrayectoServiceImpl implements TrayectoService {
     }
     @Override
     public TrayectoDTO obtenerTrayecto(Integer id) throws Exception {
-        if (trayectoRepository.findById(Long.valueOf(id)).isEmpty()) {
+        if (trayectoRepository.findById(id).isEmpty()) {
             throw new Exception("El id " + id + " no corresponde a ningun trayecto!");
         }
-        return TrayectoMapper.domainToDTO(trayectoRepository.findById(Long.valueOf(id)).get());
+        return TrayectoMapper.domainToDTO(trayectoRepository.findById(id).get());
     }
     @Override
     public TrayectoDTO agregarTrayecto(TrayectoDTO trayectoDTO) throws Exception {
@@ -40,6 +40,9 @@ public class TrayectoServiceImpl implements TrayectoService {
         }
         if (trayectoDTO.getEstado() == null || trayectoDTO.getEstado().isBlank() || trayectoDTO.getEstado().trim().isEmpty()) {
             throw new Exception("El estado del trayecto es invalido!");
+        }
+        if(trayectoRepository.findById(trayectoDTO.getIdTrayecto()).isPresent()){
+            throw new Exception("Ya existe el id del trayecto!");
         }
         Trayecto trayecto = TrayectoMapper.dtoToDomain(trayectoDTO);
         return TrayectoMapper.domainToDTO(trayectoRepository.save(trayecto));
