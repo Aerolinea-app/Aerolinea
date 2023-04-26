@@ -1,53 +1,51 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
-import co.edu.usbcali.aerolinea.DTO.AvionDTO;
+import co.edu.usbcali.aerolinea.domain.Avion;
+import co.edu.usbcali.aerolinea.dto.AvionDTO;
+import co.edu.usbcali.aerolinea.mappers.AvionMapper;
+import co.edu.usbcali.aerolinea.repository.AvionRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.AvionService;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AvionServiceImpl implements AvionService {
-
-    ArrayList aviones = new ArrayList();
-
-    AvionDTO avion1 = AvionDTO.builder().idAvion("0001").aerolineaAvion("Avianca").imgAvion("rutaImagen").build();
-    AvionDTO avion2 = new AvionDTO("0002","VivaAir","rutaImagen");
-    AvionDTO avion3 = new AvionDTO("0003","Iberia","rutaImagen");
-    AvionDTO avion4 = new AvionDTO("0004","Latam","rutaImagen");
-    AvionDTO avion5 = new AvionDTO("0005", "Iberia","rutaImagen");
-
-
-    @Override
-    public AvionDTO agregarAvion(AvionDTO avionDTO) throws Exception {
-
-        if (avionDTO == null) {
-            throw new Exception("El avion viene con datos nulos :(");
-        }
-        if (avionDTO.getIdAvion() == null){
-            throw new Exception("El id del avion es invalido!");
-        }
-        if (avionDTO.getAerolineaAvion() == null) {
-            throw new Exception("La aerolinea del avion es invalido!");
-        }
-        return avionDTO;
+    private final AvionRepository avionRepository;
+    private final ModelMapper modelMapper;
+    public AvionServiceImpl(AvionRepository avionRepository, ModelMapper modelMapper) {
+        this.avionRepository = avionRepository;
+        this.modelMapper = modelMapper;
     }
-
-    @Override
-    public AvionDTO obtenerAvion() {
-        return avion1;
-    }
-
     @Override
     public List<AvionDTO> obtenerAviones() {
-
-        aviones.add(avion1);
-        aviones.add(avion2);
-        aviones.add(avion3);
-        aviones.add(avion4);
-        aviones.add(avion5);
-
-        return aviones;
+        return AvionMapper.domainToDTOList(avionRepository.findAll());
+    }
+    @Override
+    public AvionDTO obtenerAvion(Integer id) throws Exception {
+        if (!avionRepository.existsById(id)) {
+            throw new Exception("El id " + id + " no corresponde a ningun avion!");
+        }
+        return AvionMapper.domainToDTO(avionRepository.getReferenceById(id));
+    }
+    @Override
+    public AvionDTO agregarAvion(AvionDTO avionDTO) throws Exception {
+        if (avionDTO == null) {
+            throw new Exception("El avión es invalido!");
+        }
+        if (avionDTO.getAerolineaAvion() == null || avionDTO.getAerolineaAvion().isBlank() || avionDTO.getAerolineaAvion().trim().isEmpty()) {
+            throw new Exception("Debe ingresar el nombre de la aerolinea a la que pertenece el avion!");
+        }
+        if (avionDTO.getEstado() == null || avionDTO.getEstado().isBlank() || avionDTO.getEstado().trim().isEmpty()) {
+            throw new Exception("El estado es invalido!");
+        }
+        if(avionRepository.findById(avionDTO.getIdAvion()).isPresent()){
+            throw new Exception("Ya existe el id del avion!");
+        }
+        Avion avion = AvionMapper.dtoToDomain(avionDTO);
+        return AvionMapper.domainToDTO(avionRepository.save(avion));
     }
 }

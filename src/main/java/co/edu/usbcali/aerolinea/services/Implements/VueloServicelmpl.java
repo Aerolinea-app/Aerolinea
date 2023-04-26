@@ -1,69 +1,82 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
-import co.edu.usbcali.aerolinea.DTO.VueloDTO;
+import co.edu.usbcali.aerolinea.domain.Aeropuerto;
+import co.edu.usbcali.aerolinea.domain.Vuelo;
+import co.edu.usbcali.aerolinea.dto.VueloDTO;
+import co.edu.usbcali.aerolinea.mappers.VueloMapper;
+import co.edu.usbcali.aerolinea.repository.AeropuertoRepository;
+import co.edu.usbcali.aerolinea.repository.VueloRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.VueloService;
+
+import org.modelmapper.ModelMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class VueloServicelmpl implements VueloService {
-
-    ArrayList vuelos = new ArrayList();
-
-    VueloDTO vuelo1 = VueloDTO.builder().origen("Cali").destino("Buenaventura").fechaHoraSalida(new Date()).fechaHoraLlegada(new Date()).id("1234").idAvion("13658").build();
-    VueloDTO vuelo2 = new VueloDTO("San Andres","Medellin",328000, new Date(),new Date(),"1417","8675");
-    VueloDTO vuelo3 = new VueloDTO("Cartagena","Bogota",600000, new Date(), new Date(),"1418","478");
-    VueloDTO vuelo4 = new VueloDTO("Barranquilla","Bucaramanga",200000, new Date(), new Date(),"5647","1212");
-    VueloDTO vuelo5 = new VueloDTO("Cali", "Bogota",414000, new Date(), new Date(),"7597","111");
-    VueloDTO vuelo6 = new VueloDTO("Bogota","Medellin", 305000, new Date(), new Date(),"9898","2303");
-
-    @Override
-    public VueloDTO guardarVuelo(VueloDTO vuelDTO) throws Exception{
-        if (vuelDTO == null){
-            throw new Exception("El vuelo viene con datos nulos :(");
-        }
-        if (vuelDTO.getId() == null || vuelDTO.getId().trim().equals("")){
-            throw new Exception("El Id es invalido!");
-        }
-        if (vuelDTO.getOrigen() == null || vuelDTO.getOrigen().trim().equals("")){
-            throw new Exception("Origen del vuelo es invalido!");
-        }
-        if (vuelDTO.getDestino() == null || vuelDTO.getDestino().trim().equals("")){
-            throw new Exception("Destino del vuelo es invalido!");
-        }
-        if (vuelDTO.getIdAvion() == null || vuelDTO.getIdAvion().trim().equals("")){
-            throw new Exception("El ID del avion es invalido!");
-        }
-        if (vuelDTO.getPrecio() == null || vuelDTO.getPrecio() < 0){
-            throw new Exception("El precio es invalido!");
-        }
-
-        return vuelDTO;
-
+    private final VueloRepository vueloRepository;
+    private final AeropuertoRepository aeropuertoRepository;
+    private final ModelMapper modelMapper;
+    public VueloServicelmpl(VueloRepository vueloRepository, AeropuertoRepository aeropuertoRepository, ModelMapper modelMapper) {
+        this.vueloRepository = vueloRepository;
+        this.aeropuertoRepository = aeropuertoRepository;
+        this.modelMapper = modelMapper;
     }
-
-    @Override
-    public VueloDTO obtenerVuelo() {
-
-        return vuelo1;
-
-    }
-
     @Override
     public List<VueloDTO> obtenerVuelos() {
+        return VueloMapper.domainToDTOList(vueloRepository.findAll());
+    }
+    @Override
+    public VueloDTO guardarVuelo(VueloDTO vueloDTO) throws Exception {
+        if (vueloDTO == null) {
+            throw new Exception("El vuelo no puede ser nulo!");
+        }
+        if (vueloDTO.getPrecio() < 0) {
+            throw new Exception("El precio del vuelo no puede ser negativo!");
+        }
+        if (vueloDTO.getIdVuelo() == null) {
+            throw new Exception("El id del vuelo es invalido!");
+        }
+        if (vueloDTO.getFechaHoraSalida() == null) {
+            throw new Exception("La hora de salida es invalida!");
+        }
+        if (vueloDTO.getFechaHoraLlegada() == null) {
+            throw new Exception("La hora de llegada es invalida!");
+        }
+        if (vueloDTO.getPrecioAsientoPreferencial() < 0) {
+            throw new Exception("El precio del asiento preferencial no puede ser negativo!");
+        }
+        if (vueloDTO.getPrecioAsientoVip() < 0) {
+            throw new Exception("El precio del asiento vip no puede ser negativo!");
+        }
+        if (vueloDTO.getPrecioAsientoTurista() < 0) {
+            throw new Exception("El precio del asiento turista no puede ser negativo!");
+        }
+        if (vueloDTO.getEstado() == null || vueloDTO.getEstado().isBlank() || vueloDTO.getEstado().trim().isEmpty()) {
+            throw new Exception("El estado del vuelo es invalido!");
+        }
+        if(vueloRepository.findById(vueloDTO.getIdVuelo()).isPresent()){
+            throw new Exception("Ya existe el id del vuelo!");
+        }
+        Vuelo vuelo = VueloMapper.dtoToDomain(vueloDTO);
 
-        vuelos.add(vuelo1);
-        vuelos.add(vuelo2);
-        vuelos.add(vuelo3);
-        vuelos.add(vuelo4);
-        vuelos.add(vuelo5);
-        vuelos.add(vuelo6);
+        Aeropuerto aeropuerto_origen = aeropuertoRepository.getReferenceById(vueloDTO.getIdAeropuertoOrigen());
+        Aeropuerto aeropuerto_destino = aeropuertoRepository.getReferenceById(vueloDTO.getIdAeropuertoDestino());
 
-        return vuelos;
+        vuelo.setIdAeropuertoOrigen(aeropuerto_origen);
+        vuelo.setIdAeropuertoDestino(aeropuerto_destino);
 
+        return VueloMapper.domainToDTO(vueloRepository.save(vuelo));
     }
 
+    @Override
+    public VueloDTO obtenerVuelo(Integer id) throws Exception {
+        if (!vueloRepository.existsById(id)) {
+            throw new Exception("El id " + id + " no corresponde a ningun vuelo!");
+        }
+        return VueloMapper.domainToDTO(vueloRepository.getReferenceById(id));
+    }
 }
