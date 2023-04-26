@@ -1,9 +1,16 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
+import co.edu.usbcali.aerolinea.controllers.VueloController;
+import co.edu.usbcali.aerolinea.domain.Asiento;
 import co.edu.usbcali.aerolinea.domain.Reserva;
+import co.edu.usbcali.aerolinea.domain.Usuario;
+import co.edu.usbcali.aerolinea.domain.Vuelo;
 import co.edu.usbcali.aerolinea.dto.ReservaDTO;
 import co.edu.usbcali.aerolinea.mappers.ReservaMapper;
+import co.edu.usbcali.aerolinea.repository.AsientoRepository;
 import co.edu.usbcali.aerolinea.repository.ReservaRepository;
+import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
+import co.edu.usbcali.aerolinea.repository.VueloRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.ReservaService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -15,9 +22,15 @@ import java.util.List;
 @Slf4j
 public class ReservaServiceImpl implements ReservaService {
     private final ReservaRepository reservaRepository;
+    private final VueloRepository vueloRepository;
+    private final AsientoRepository asientoRepository;
+    private final UsuarioRepository usuarioRepository;
     private final ModelMapper modelMapper;
-    public ReservaServiceImpl(ReservaRepository reservaRepository, ModelMapper modelMapper) {
+    public ReservaServiceImpl(ReservaRepository reservaRepository, VueloRepository vueloRepository, AsientoRepository asientoRepository, UsuarioRepository usuarioRepository, ModelMapper modelMapper) {
         this.reservaRepository = reservaRepository;
+        this.vueloRepository = vueloRepository;
+        this.asientoRepository = asientoRepository;
+        this.usuarioRepository = usuarioRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -26,10 +39,10 @@ public class ReservaServiceImpl implements ReservaService {
     }
     @Override
     public ReservaDTO obtenerReserva(Integer id) throws Exception {
-        if (reservaRepository.findById(id).isEmpty()) {
+        if (!reservaRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ninguna reserva!");
         }
-        return ReservaMapper.domainToDTO(reservaRepository.findById(id).get());
+        return ReservaMapper.domainToDTO(reservaRepository.getReferenceById(id));
     }
     @Override
     public ReservaDTO agregarReserva(ReservaDTO reservaDTO) throws Exception {
@@ -52,6 +65,15 @@ public class ReservaServiceImpl implements ReservaService {
             throw new Exception("Ya existe el id de la reserva!");
         }
         Reserva reserva = ReservaMapper.dtoToDomain(reservaDTO);
+
+        Vuelo vuelo = vueloRepository.getReferenceById(reservaDTO.getIdVuelo());
+        Asiento asiento = asientoRepository.getReferenceById(reservaDTO.getIdAsiento());
+        Usuario usuario = usuarioRepository.getReferenceById(reservaDTO.getIdUsuario());
+
+        reserva.setIdVuelo(vuelo);
+        reserva.setIdAsiento(asiento);
+        reserva.setIdUsuario(usuario);
+
         return ReservaMapper.domainToDTO(reservaRepository.save(reserva));
     }
 }

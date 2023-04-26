@@ -1,9 +1,13 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
 import co.edu.usbcali.aerolinea.domain.Asiento;
+import co.edu.usbcali.aerolinea.domain.Avion;
+import co.edu.usbcali.aerolinea.domain.TipoAsiento;
 import co.edu.usbcali.aerolinea.dto.AsientoDTO;
 import co.edu.usbcali.aerolinea.mappers.AsientoMapper;
 import co.edu.usbcali.aerolinea.repository.AsientoRepository;
+import co.edu.usbcali.aerolinea.repository.AvionRepository;
+import co.edu.usbcali.aerolinea.repository.TipoAsientoRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.AsientoService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +20,14 @@ import java.util.List;
 @Slf4j
 public class AsientoServiceImpl implements AsientoService {
     private final AsientoRepository asientoRepository;
+    private final TipoAsientoRepository tipoAsientoRepository;
+    private final AvionRepository avionRepository;
     private final ModelMapper modelMapper;
 
-    public AsientoServiceImpl(AsientoRepository asientoRepository, ModelMapper modelMapper) {
+    public AsientoServiceImpl(AsientoRepository asientoRepository, TipoAsientoRepository tipoAsientoRepository, AvionRepository avionRepository, ModelMapper modelMapper) {
         this.asientoRepository = asientoRepository;
+        this.tipoAsientoRepository = tipoAsientoRepository;
+        this.avionRepository = avionRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -28,10 +36,10 @@ public class AsientoServiceImpl implements AsientoService {
     }
     @Override
     public AsientoDTO obtenerAsiento(Integer id) throws Exception {
-        if (asientoRepository.findById(id).isEmpty()) {
+        if (!asientoRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun asiento!");
         }
-        return AsientoMapper.domainToDTO(asientoRepository.findById(id).get());
+        return AsientoMapper.domainToDTO(asientoRepository.getReferenceById(id));
     }
     @Override
     public AsientoDTO agregarAsiento(AsientoDTO asientoDTO) throws Exception {
@@ -50,7 +58,14 @@ public class AsientoServiceImpl implements AsientoService {
         if(asientoRepository.findById(asientoDTO.getIdAsiento()).isPresent()){
             throw new Exception("Ya existe el id del asiento!");
         }
+
         Asiento asiento = AsientoMapper.dtoToDomain(asientoDTO);
+
+        TipoAsiento tipoAsiento = tipoAsientoRepository.getReferenceById(asientoDTO.getIdTipoa());
+        Avion avion = avionRepository.getReferenceById(asientoDTO.getIdAvion());
+        asiento.setIdTipoa(tipoAsiento);
+        asiento.setIdAvion(avion);
+
         return AsientoMapper.domainToDTO(asientoRepository.save(asiento));
     }
 }

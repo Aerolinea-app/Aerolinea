@@ -22,7 +22,7 @@ public class Usuario implements Serializable {
     private Integer idUsuario;
     @ManyToOne
     @JoinColumn(name = "id_rolusuario", referencedColumnName = "id_rolusuario")
-    private RolUsuario rolUsuario;
+    private RolUsuario idRolUsuario;
     @Column(name = "cedula", nullable = false, length = 12)
     private String cedula;
     @Column(name = "nombre", nullable = false, length = 30)
@@ -33,4 +33,5 @@ public class Usuario implements Serializable {
     private String correo;
     @Column(name = "estado", nullable = false, length = 1)
     private String estado;
+
 }

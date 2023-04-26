@@ -1,7 +1,9 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
 import co.edu.usbcali.aerolinea.domain.Factura;
+import co.edu.usbcali.aerolinea.domain.Usuario;
 import co.edu.usbcali.aerolinea.repository.FacturaRepository;
+import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.FacturaService;
 import lombok.extern.slf4j.Slf4j;
 import co.edu.usbcali.aerolinea.dto.FacturaDTO;
@@ -15,10 +17,12 @@ import java.util.List;
 @Slf4j
 public class FacturaServiceImpl implements FacturaService {
     private final FacturaRepository facturaRepository;
+    private final UsuarioRepository usuarioRepository;
     private final ModelMapper modelMapper;
 
-    public FacturaServiceImpl(FacturaRepository facturaRepository, ModelMapper modelMapper) {
+    public FacturaServiceImpl(FacturaRepository facturaRepository, UsuarioRepository usuarioRepository, ModelMapper modelMapper) {
         this.facturaRepository = facturaRepository;
+        this.usuarioRepository = usuarioRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -27,10 +31,10 @@ public class FacturaServiceImpl implements FacturaService {
     }
     @Override
     public FacturaDTO obtenerFactura(Integer id) throws Exception {
-        if (facturaRepository.findById(id).isEmpty()) {
+        if (!facturaRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ninguna factura");
         }
-        return FacturaMapper.domainToDTO(facturaRepository.findById(id).get());
+        return FacturaMapper.domainToDTO(facturaRepository.getReferenceById(id));
     }
     @Override
     public FacturaDTO agregarFactura(FacturaDTO facturaDTO) throws Exception {
@@ -47,6 +51,10 @@ public class FacturaServiceImpl implements FacturaService {
             throw new Exception("Ya existe el id de la factura!");
         }
         Factura factura = FacturaMapper.dtoToDomain(facturaDTO);
+
+        Usuario usuario = usuarioRepository.getReferenceById(facturaDTO.getIdUsuario());
+        factura.setIdUsuario(usuario);
+
         return FacturaMapper.domainToDTO(facturaRepository.save(factura));
     }
 }

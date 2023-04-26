@@ -1,8 +1,11 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
+import co.edu.usbcali.aerolinea.domain.RolUsuario;
+import co.edu.usbcali.aerolinea.domain.TipoAsiento;
 import co.edu.usbcali.aerolinea.domain.Usuario;
 import co.edu.usbcali.aerolinea.dto.UsuarioDTO;
 import co.edu.usbcali.aerolinea.mappers.UsuarioMapper;
+import co.edu.usbcali.aerolinea.repository.RolUsuarioRepository;
 import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.UsuarioService;
 
@@ -16,9 +19,11 @@ import java.util.List;
 @Slf4j
 public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final RolUsuarioRepository rolUsuarioRepository;
     private final ModelMapper modelMapper;
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, ModelMapper modelMapper) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, RolUsuarioRepository rolUsuarioRepository, ModelMapper modelMapper) {
         this.usuarioRepository = usuarioRepository;
+        this.rolUsuarioRepository = rolUsuarioRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -45,6 +50,10 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new Exception("Ya existe el id del usuario!");
         }
         Usuario usuario = UsuarioMapper.dtoToDomain(usuarioDTO);
+
+        RolUsuario rolUsuario = rolUsuarioRepository.getReferenceById(usuarioDTO.getIdRolusuario());
+        usuario.setIdRolUsuario(rolUsuario);
+
         return UsuarioMapper.domainToDTO(usuarioRepository.save(usuario));
     }
     @Override
@@ -53,10 +62,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
     @Override
     public UsuarioDTO obtenerUsuario(Integer id) throws Exception {
-        if (usuarioRepository.findById(id).isEmpty()) {
+        if (!usuarioRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun usuario!");
         }
 
-        return UsuarioMapper.domainToDTO(usuarioRepository.findById(id).get());
+        return UsuarioMapper.domainToDTO(usuarioRepository.getReferenceById(id));
     }
 }

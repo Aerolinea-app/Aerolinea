@@ -43,9 +43,9 @@ public class TipoAsientoServiceImpl implements TipoAsientoService {
     }
     @Override
     public TipoAsientoDTO obtenerTipoAsiento(Integer id) throws Exception {
-        if (tipoAsientoService.findById(id).isEmpty()) {
+        if (!tipoAsientoService.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun tipo de asiento!");
         }
-        return TipoAsientoMapper.domainToDTO(tipoAsientoService.findById(id).get());
+        return TipoAsientoMapper.domainToDTO(tipoAsientoService.getReferenceById(id));
     }
 }

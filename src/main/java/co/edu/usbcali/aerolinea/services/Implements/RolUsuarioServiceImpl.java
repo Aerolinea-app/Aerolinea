@@ -28,10 +28,10 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
     }
     @Override
     public RolUsuarioDTO obtenerRolUsuario(Integer id) throws Exception {
-        if (rolUsuarioRepository.findById(id).isEmpty()) {
+        if (!rolUsuarioRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun usuario!");
         }
-        return RolUsuarioMapper.domainToDto(rolUsuarioRepository.findById(id).get());
+        return RolUsuarioMapper.domainToDto(rolUsuarioRepository.getReferenceById(id));
     }
     @Override
     public RolUsuarioDTO guardarRolUsuario(RolUsuarioDTO rolUsuarioDTO) throws Exception {

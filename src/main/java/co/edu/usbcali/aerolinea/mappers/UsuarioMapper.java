@@ -10,7 +10,7 @@ public class UsuarioMapper {
     public static UsuarioDTO domainToDTO(Usuario usuario) {
         return UsuarioDTO.builder()
                 .idUsuario(usuario.getIdUsuario())
-                .idRolusuario(usuario.getRolUsuario() != null ? usuario.getRolUsuario().getIdRolusuario() : null)
+                .idRolusuario(usuario.getIdRolUsuario() != null ? usuario.getIdRolUsuario().getIdRolusuario() : null)
                 .cedula(usuario.getCedula())
                 .nombre(usuario.getNombre())
                 .apellido(usuario.getApellido())

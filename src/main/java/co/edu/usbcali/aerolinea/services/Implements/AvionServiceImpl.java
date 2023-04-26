@@ -26,10 +26,10 @@ public class AvionServiceImpl implements AvionService {
     }
     @Override
     public AvionDTO obtenerAvion(Integer id) throws Exception {
-        if (avionRepository.findById(id).isEmpty()) {
+        if (!avionRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun avion!");
         }
-        return AvionMapper.domainToDTO(avionRepository.findById(id).get());
+        return AvionMapper.domainToDTO(avionRepository.getReferenceById(id));
     }
     @Override
     public AvionDTO agregarAvion(AvionDTO avionDTO) throws Exception {

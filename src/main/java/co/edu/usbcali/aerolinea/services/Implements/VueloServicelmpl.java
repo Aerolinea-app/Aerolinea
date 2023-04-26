@@ -1,8 +1,10 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
+import co.edu.usbcali.aerolinea.domain.Aeropuerto;
 import co.edu.usbcali.aerolinea.domain.Vuelo;
 import co.edu.usbcali.aerolinea.dto.VueloDTO;
 import co.edu.usbcali.aerolinea.mappers.VueloMapper;
+import co.edu.usbcali.aerolinea.repository.AeropuertoRepository;
 import co.edu.usbcali.aerolinea.repository.VueloRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.VueloService;
 
@@ -16,9 +18,11 @@ import java.util.List;
 @Slf4j
 public class VueloServicelmpl implements VueloService {
     private final VueloRepository vueloRepository;
+    private final AeropuertoRepository aeropuertoRepository;
     private final ModelMapper modelMapper;
-    public VueloServicelmpl(VueloRepository vueloRepository, ModelMapper modelMapper) {
+    public VueloServicelmpl(VueloRepository vueloRepository, AeropuertoRepository aeropuertoRepository, ModelMapper modelMapper) {
         this.vueloRepository = vueloRepository;
+        this.aeropuertoRepository = aeropuertoRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -58,14 +62,21 @@ public class VueloServicelmpl implements VueloService {
             throw new Exception("Ya existe el id del vuelo!");
         }
         Vuelo vuelo = VueloMapper.dtoToDomain(vueloDTO);
+
+        Aeropuerto aeropuerto_origen = aeropuertoRepository.getReferenceById(vueloDTO.getIdAeropuertoOrigen());
+        Aeropuerto aeropuerto_destino = aeropuertoRepository.getReferenceById(vueloDTO.getIdAeropuertoDestino());
+
+        vuelo.setIdAeropuertoOrigen(aeropuerto_origen);
+        vuelo.setIdAeropuertoDestino(aeropuerto_destino);
+
         return VueloMapper.domainToDTO(vueloRepository.save(vuelo));
     }
 
     @Override
     public VueloDTO obtenerVuelo(Integer id) throws Exception {
-        if (vueloRepository.findById(id).isEmpty()) {
+        if (!vueloRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun vuelo!");
         }
-        return VueloMapper.domainToDTO(vueloRepository.findById(id).get());
+        return VueloMapper.domainToDTO(vueloRepository.getReferenceById(id));
     }
 }

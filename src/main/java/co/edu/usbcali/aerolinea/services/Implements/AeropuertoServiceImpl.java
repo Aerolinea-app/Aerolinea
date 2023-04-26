@@ -8,6 +8,7 @@ import co.edu.usbcali.aerolinea.services.Interfaces.AeropuertoService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.InputMismatchException;
 import java.util.List;
 
 @Service
@@ -43,10 +44,10 @@ public class AeropuertoServiceImpl implements AeropuertoService {
     }
     @Override
     public AeropuertoDTO obtenerAeropuerto(Integer id) throws Exception {
-        if (aeropuertoRepository.findById(id).isEmpty()) {
+        if (!aeropuertoRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun aeropuerto!");
         }
-        return AeropuertoMapper.domainToDTO(aeropuertoRepository.findById(id).get());
+        return AeropuertoMapper.domainToDTO(aeropuertoRepository.getReferenceById(id));
     }
     @Override
     public List<AeropuertoDTO> obtenerAeropuertos() {

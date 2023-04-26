@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Table(name = "aeropuerto")
 public class Aeropuerto implements Serializable {
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aeropuerto", nullable = false, unique = true)

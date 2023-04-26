@@ -1,8 +1,12 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
+import co.edu.usbcali.aerolinea.domain.Aeropuerto;
+import co.edu.usbcali.aerolinea.domain.Avion;
 import co.edu.usbcali.aerolinea.domain.Trayecto;
 import co.edu.usbcali.aerolinea.dto.TrayectoDTO;
 import co.edu.usbcali.aerolinea.mappers.TrayectoMapper;
+import co.edu.usbcali.aerolinea.repository.AeropuertoRepository;
+import co.edu.usbcali.aerolinea.repository.AvionRepository;
 import co.edu.usbcali.aerolinea.repository.TrayectoRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.TrayectoService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,17 +19,21 @@ import java.util.List;
 @Slf4j
 public class TrayectoServiceImpl implements TrayectoService {
     private final TrayectoRepository trayectoRepository;
+    private final AvionRepository avionRepository;
+    private final AeropuertoRepository aeropuertoRepository;
     private final ModelMapper modelMapper;
-    public TrayectoServiceImpl(TrayectoRepository trayectoRepository, ModelMapper modelMapper) {
+    public TrayectoServiceImpl(TrayectoRepository trayectoRepository, AvionRepository avionRepository, AeropuertoRepository aeropuertoRepository, ModelMapper modelMapper) {
         this.trayectoRepository = trayectoRepository;
+        this.avionRepository = avionRepository;
+        this.aeropuertoRepository = aeropuertoRepository;
         this.modelMapper = modelMapper;
     }
     @Override
     public TrayectoDTO obtenerTrayecto(Integer id) throws Exception {
-        if (trayectoRepository.findById(id).isEmpty()) {
+        if (!trayectoRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun trayecto!");
         }
-        return TrayectoMapper.domainToDTO(trayectoRepository.findById(id).get());
+        return TrayectoMapper.domainToDTO(trayectoRepository.getReferenceById(id));
     }
     @Override
     public TrayectoDTO agregarTrayecto(TrayectoDTO trayectoDTO) throws Exception {
@@ -45,6 +53,15 @@ public class TrayectoServiceImpl implements TrayectoService {
             throw new Exception("Ya existe el id del trayecto!");
         }
         Trayecto trayecto = TrayectoMapper.dtoToDomain(trayectoDTO);
+
+        Avion avion = avionRepository.getReferenceById(trayectoDTO.getIdAvion());
+        Aeropuerto aeropuerto_origen = aeropuertoRepository.getReferenceById(trayectoDTO.getIdAeropuertoOrigen());
+        Aeropuerto aeropuerto_destino = aeropuertoRepository.getReferenceById(trayectoDTO.getIdAeropuertoDestino());
+
+        trayecto.setIdAvion(avion);
+        trayecto.setAeropuertoOrigen(aeropuerto_origen);
+        trayecto.setAeropuertoDestino(aeropuerto_destino);
+
         return TrayectoMapper.domainToDTO(trayectoRepository.save(trayecto));
     }
     @Override

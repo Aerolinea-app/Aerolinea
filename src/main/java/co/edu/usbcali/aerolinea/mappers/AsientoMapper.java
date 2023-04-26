@@ -13,7 +13,6 @@ public class AsientoMapper {
                 .idAsiento(asiento.getIdAsiento())
                 .idTipoa(asiento.getIdTipoa() != null ? asiento.getIdTipoa().getIdTipoa() : null)
                 .idAvion(asiento.getIdAvion() != null ? asiento.getIdAvion().getIdAvion() : null)
-                .idAvion(asiento.getIdAvion() != null ? asiento.getIdAvion().getIdAvion() : null)
                 .ubicacion(asiento.getUbicacion())
                 .precio(asiento.getPrecio())
                 .estado(asiento.getEstado())
