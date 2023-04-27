@@ -19,7 +19,7 @@ public class UsuariosController {
     public UsuariosController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    @GetMapping("/obtenerUsuario")
+    @GetMapping("/obtenerUsuario/{idUsuario}")
     public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable("idUsuario") Integer idUsuario) {
         try {
             return new ResponseEntity(usuarioService.obtenerUsuario(idUsuario), HttpStatus.OK);

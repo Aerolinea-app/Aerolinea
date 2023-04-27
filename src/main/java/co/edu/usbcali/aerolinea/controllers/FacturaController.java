@@ -24,7 +24,7 @@ public class FacturaController {
         return new ResponseEntity(facturaService.obtenerFacturas(), HttpStatus.OK);
     }
 
-    @GetMapping("/obtener/Factura/{idFactura}")
+    @GetMapping("/obtenerFactura/{idFactura}")
     public ResponseEntity<FacturaDTO> obtenerFactura(@PathVariable("idFactura") Integer idFactura) {
         try {
             return new ResponseEntity(facturaService.obtenerFactura(idFactura), HttpStatus.OK);

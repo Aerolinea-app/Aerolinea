@@ -53,7 +53,7 @@ public class AeropuertoServiceImplTest {
                 .nombre("FlowAir")
                 .iata("FAR")
                 .ubicacion("Cali")
-                .estado("D")
+                .estado("I")
                 .build();
 
         Mockito.when(aeropuertoRepository.existsById(1)).thenReturn(true);
@@ -63,7 +63,7 @@ public class AeropuertoServiceImplTest {
         AeropuertoDTO aeropuertoDTO = aeropuertoService.obtenerAeropuerto(1);
 
         // Verificación del resultado esperado
-        assertEquals("D", aeropuertoDTO.getEstado());
+        assertEquals("I", aeropuertoDTO.getEstado());
     }
 
     //Prueba unitaria Buena
