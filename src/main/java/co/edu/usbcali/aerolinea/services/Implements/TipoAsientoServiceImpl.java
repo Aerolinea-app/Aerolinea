@@ -29,6 +29,9 @@ public class TipoAsientoServiceImpl implements TipoAsientoService {
         if (tipoAsientoDTO == null) {
             throw new Exception("El tipo de asiento es invalido!");
         }
+        if (tipoAsientoDTO.getIdTipoa() == null || tipoAsientoDTO.getIdTipoa() < 0) {
+            throw new Exception("El id del tipo de asiento es invalida!");
+        }
         if (tipoAsientoDTO.getDescripcion() == null || tipoAsientoDTO.getDescripcion().isBlank() || tipoAsientoDTO.getDescripcion().trim().isEmpty()) {
             throw new Exception("La descripción del tipo de asiento es invalida!");
         }

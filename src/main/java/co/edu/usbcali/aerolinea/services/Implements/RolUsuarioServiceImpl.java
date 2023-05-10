@@ -38,7 +38,7 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
         if(rolUsuarioDTO == null){
             throw new Exception("Rol del usuario no valido!");
         }
-        if(rolUsuarioDTO.getIdRolusuario() == null){
+        if(rolUsuarioDTO.getIdRolusuario() == null || rolUsuarioDTO.getIdRolusuario() < 0){
             throw new Exception("Id del usuario no valido!");
         }
         if(rolUsuarioDTO.getDescripcion() == null || rolUsuarioDTO.getDescripcion().trim().isEmpty()){

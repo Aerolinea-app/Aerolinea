@@ -1,9 +1,12 @@
 package co.edu.usbcali.aerolinea.services;
 
 import co.edu.usbcali.aerolinea.domain.Avion;
+import co.edu.usbcali.aerolinea.dto.AeropuertoDTO;
 import co.edu.usbcali.aerolinea.dto.AvionDTO;
 import co.edu.usbcali.aerolinea.repository.AvionRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.AvionService;
+import co.edu.usbcali.aerolinea.utility.AeropuertoUtilTest;
+import co.edu.usbcali.aerolinea.utility.AvionUtilTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 public class AvionServiceImplTest {
@@ -97,5 +100,25 @@ public class AvionServiceImplTest {
 
         assertTrue(aviones.isEmpty());
     }
+    //Prueba unitaria buena
+    @Test
+    void agregarAvion() throws Exception {
+        given(avionRepository.existsById(AvionUtilTest.CODIGO_UNO)).willReturn(true);
+        given(avionRepository.getReferenceById(AvionUtilTest.CODIGO_UNO)).willReturn(AvionUtilTest.Avion1);
+        given(avionRepository.save(AvionUtilTest.Avion1)).willReturn(AvionUtilTest.Avion1);
+        AvionDTO avionGuardado = avionService.agregarAvion(AvionUtilTest.AvionDTO1);
 
+        assertEquals(AvionUtilTest.CODIGO_UNO, avionGuardado.getIdAvion());
+        assertEquals(AvionUtilTest.AEROLINEA1, avionGuardado.getAerolineaAvion());
+    }
+    //Prueba unitaria mala
+    @Test
+    void agregarAvion_Exception(){
+        Exception exception = assertThrows(Exception.class, () ->
+                avionService.agregarAvion(AvionUtilTest.AvionDTO2_No_id));
+
+        String expectedMessage = "El id del avion es invalido!";
+        assertEquals(expectedMessage, exception.getMessage());
+
+    }
 }

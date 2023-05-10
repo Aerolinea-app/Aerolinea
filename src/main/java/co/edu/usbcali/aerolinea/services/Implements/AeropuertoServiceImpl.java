@@ -24,6 +24,9 @@ public class AeropuertoServiceImpl implements AeropuertoService {
         if (aeropuertoDTO == null) {
             throw new Exception("El aeropuerto no puede ser nulo");
         }
+        if (aeropuertoDTO.getIdAeropuerto() == null || aeropuertoDTO.getIdAeropuerto() == null) {
+            throw new Exception("El id del aeropuerto es obligatorio!");
+        }
         if (aeropuertoDTO.getNombre() == null || aeropuertoDTO.getNombre().isBlank() || aeropuertoDTO.getNombre().trim().isEmpty()) {
             throw new Exception("El nombre del aeropuerto es invalido!");
         }

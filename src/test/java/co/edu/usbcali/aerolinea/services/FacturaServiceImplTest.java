@@ -5,7 +5,11 @@ import co.edu.usbcali.aerolinea.domain.RolUsuario;
 import co.edu.usbcali.aerolinea.domain.Usuario;
 import co.edu.usbcali.aerolinea.dto.FacturaDTO;
 import co.edu.usbcali.aerolinea.repository.FacturaRepository;
+import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.FacturaService;
+import co.edu.usbcali.aerolinea.utility.FacturaUtilTest;
+import co.edu.usbcali.aerolinea.utility.UsuarioUtilTest;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +21,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 public class FacturaServiceImplTest {
@@ -26,6 +31,8 @@ public class FacturaServiceImplTest {
     private FacturaService facturaService;
     @MockBean
     private FacturaRepository facturaRepository;
+    @MockBean
+    private UsuarioRepository usuarioRepository;
 
     //Prueba unitaria Buena
     @Test
@@ -111,4 +118,25 @@ public class FacturaServiceImplTest {
 
         assertTrue(facturas.isEmpty());
     }
+
+    //Prueba unitaria buena
+    @Test
+    public void agregarFactura() throws Exception {
+        given(usuarioRepository.existsById(UsuarioUtilTest.CODIGO1)).willReturn(true);
+        given(usuarioRepository.getReferenceById(UsuarioUtilTest.CODIGO1)).willReturn(UsuarioUtilTest.Usuario1);
+        given(facturaRepository.existsById(FacturaUtilTest.CODIGO1)).willReturn(true);
+        given(facturaRepository.save(any())).willReturn(FacturaUtilTest.Factura1);
+
+        FacturaDTO facturaGuardada = facturaService.agregarFactura(FacturaUtilTest.facturaDTO);
+
+        assertEquals(FacturaUtilTest.CODIGO1, facturaGuardada.getIdFactura());
+    }
+    //Prueba unitaria mala
+    @Test
+    public void agregarFactura_malo() {
+        given(facturaRepository.existsById(FacturaUtilTest.CODIGO1)).willReturn(false);
+
+        assertThrows(java.lang.Exception.class, () -> facturaService.agregarFactura(FacturaUtilTest.facturaDTO));
+    }
+
 }

@@ -36,6 +36,9 @@ public class AvionServiceImpl implements AvionService {
         if (avionDTO == null) {
             throw new Exception("El avión es invalido!");
         }
+        if (avionDTO.getIdAvion() == null || avionDTO.getIdAvion() < 0) {
+            throw new Exception("El id del avion es invalido!");
+        }
         if (avionDTO.getAerolineaAvion() == null || avionDTO.getAerolineaAvion().isBlank() || avionDTO.getAerolineaAvion().trim().isEmpty()) {
             throw new Exception("Debe ingresar el nombre de la aerolinea a la que pertenece el avion!");
         }
