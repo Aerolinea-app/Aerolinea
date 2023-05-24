@@ -8,4 +8,5 @@ public interface TipoAsientoService {
     List<TipoAsientoDTO> obtenerTipoAsientos();
     TipoAsientoDTO obtenerTipoAsiento(Integer id) throws Exception;
     TipoAsientoDTO agregarTipoAsiento(TipoAsientoDTO tipoAsientoDTO) throws Exception;
+    List<TipoAsientoDTO> obtenerTipoAsientosActivos();
 }

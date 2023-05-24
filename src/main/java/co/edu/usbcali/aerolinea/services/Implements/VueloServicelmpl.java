@@ -79,4 +79,8 @@ public class VueloServicelmpl implements VueloService {
         }
         return VueloMapper.domainToDTO(vueloRepository.getReferenceById(id));
     }
+    @Override
+    public List<VueloDTO> obtenerVuelosActivos() {
+        return VueloMapper.domainToDTOList(vueloRepository.findAllByEstado("A"));
+    }
 }

@@ -8,4 +8,5 @@ public interface UsuarioService {
     List<UsuarioDTO> obtenerUsuarios();
     UsuarioDTO obtenerUsuario(Integer id) throws Exception;
     UsuarioDTO agregarUsuario(UsuarioDTO usuarioDTO) throws Exception;
+    List<UsuarioDTO> obtenerUsuariosActivos();
 }

@@ -18,6 +18,7 @@ public class AeropuertoUtilTest {
     public static String NOMBRE2 = "Boyacá";
     public static String UBICACION2 = "Boyacá";
     public static String ESTADO2 = "A";
+    public static String ID_NO_ENCONTRADO = "El aeropuerto con id %s no existe";
 
     public static Aeropuerto Aeropuerto1 =
             Aeropuerto.builder().idAeropuerto(CODIGO_UNO).iata(IATA_1).nombre(NOMBRE1).ubicacion(UBICACION1).estado(ESTADO1).build();
@@ -31,4 +32,5 @@ public class AeropuertoUtilTest {
     public static List<Aeropuerto> aeropuertos = Arrays.asList(Aeropuerto1, Aeropuerto2);
 
     public static List<AeropuertoDTO> aeropuertosDTOS = AeropuertoMapper.domainToDTOList(aeropuertos);
+    public static List<AeropuertoDTO> AEROPUERTOS_NULL = Arrays.asList();
 }

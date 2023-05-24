@@ -8,5 +8,6 @@ public interface RolUsuarioService {
     List<RolUsuarioDTO> obtenerRolUsuarios();
     RolUsuarioDTO obtenerRolUsuario(Integer id) throws Exception;
     RolUsuarioDTO guardarRolUsuario(RolUsuarioDTO rolUsuarioDTO) throws Exception;
+    List<RolUsuarioDTO> obtenerRolUsuariosActivos();
 }
 

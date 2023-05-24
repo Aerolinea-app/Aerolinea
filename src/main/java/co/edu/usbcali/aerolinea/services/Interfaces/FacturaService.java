@@ -8,4 +8,5 @@ public interface FacturaService {
     List<FacturaDTO> obtenerFacturas();
     FacturaDTO obtenerFactura(Integer id) throws Exception;
     FacturaDTO agregarFactura(FacturaDTO facturaDTO) throws Exception;
+    List<FacturaDTO> obtenerFacturasActivas();
 }

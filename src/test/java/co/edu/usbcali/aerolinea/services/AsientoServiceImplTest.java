@@ -4,6 +4,8 @@ import co.edu.usbcali.aerolinea.domain.*;
 import co.edu.usbcali.aerolinea.dto.AsientoDTO;
 import co.edu.usbcali.aerolinea.repository.*;
 import co.edu.usbcali.aerolinea.services.Interfaces.AsientoService;
+import co.edu.usbcali.aerolinea.utility.AsientoUtilTest;
+import co.edu.usbcali.aerolinea.utility.TipoAsientoUtilTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.BDDMockito.given;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class AsientoServiceImplTest {
@@ -23,6 +26,8 @@ public class AsientoServiceImplTest {
     private AsientoService asientoService;
     @MockBean
     private AsientoRepository asientoRepository;
+    @MockBean
+    private TipoAsientoRepository tipoAsientoRepository;
 
     //Prueba unitaria buena
     @Test
@@ -119,5 +124,15 @@ public class AsientoServiceImplTest {
 
         assertTrue(asientos.isEmpty());
     }
+    @Test
+    public void guardarAsientoOk() throws Exception {
+        given(tipoAsientoRepository.existsById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(true);
+        given(tipoAsientoRepository.getReferenceById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(TipoAsientoUtilTest.Tipoasiento1);
+        given(asientoRepository.existsById(AsientoUtilTest.CODIGO1)).willReturn(true);
+        given(asientoRepository.save(AsientoUtilTest.asiento1)).willReturn(AsientoUtilTest.asiento1);
 
+        AsientoDTO asientoSavedDTO = asientoService.agregarAsiento(AsientoUtilTest.asientoDTO);
+
+        assertEquals(AsientoUtilTest.CODIGO1, asientoSavedDTO.getIdAsiento());
+    }
 }

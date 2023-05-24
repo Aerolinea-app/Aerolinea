@@ -68,4 +68,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return UsuarioMapper.domainToDTO(usuarioRepository.getReferenceById(id));
     }
+    @Override
+    public List<UsuarioDTO> obtenerUsuariosActivos() {
+        return UsuarioMapper.domainToDTOList(usuarioRepository.findAllByEstado("A"));
+    }
 }

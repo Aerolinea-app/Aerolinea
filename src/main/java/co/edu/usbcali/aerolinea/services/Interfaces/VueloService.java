@@ -8,5 +8,6 @@ public interface VueloService {
     VueloDTO guardarVuelo(VueloDTO vuelDTO) throws Exception;
     VueloDTO obtenerVuelo(Integer id) throws Exception;
     List<VueloDTO> obtenerVuelos();
+    List<VueloDTO> obtenerVuelosActivos();
 
 }

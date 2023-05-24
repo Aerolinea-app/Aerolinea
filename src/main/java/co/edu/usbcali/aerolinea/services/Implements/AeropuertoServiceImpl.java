@@ -46,6 +46,10 @@ public class AeropuertoServiceImpl implements AeropuertoService {
         return AeropuertoMapper.domainToDTO(aeropuertoRepository.save(aeropuerto));
     }
     @Override
+    public List<AeropuertoDTO> obtenerAeropuertosActivos() {
+        return AeropuertoMapper.domainToDTOList(aeropuertoRepository.findAllByEstado("A"));
+    }
+    @Override
     public AeropuertoDTO obtenerAeropuerto(Integer id) throws Exception {
         if (!aeropuertoRepository.existsById(id)) {
             throw new Exception("El id " + id + " no corresponde a ningun aeropuerto!");

@@ -8,4 +8,5 @@ public interface TrayectoService {
     List<TrayectoDTO> obtenerTrayectos();
     TrayectoDTO obtenerTrayecto(Integer id) throws Exception;
     TrayectoDTO agregarTrayecto(TrayectoDTO trayectoDTO) throws Exception;
+    List<TrayectoDTO> obtenerTrayectosActivos();
 }

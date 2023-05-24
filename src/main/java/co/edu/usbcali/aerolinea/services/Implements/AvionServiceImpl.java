@@ -51,4 +51,9 @@ public class AvionServiceImpl implements AvionService {
         Avion avion = AvionMapper.dtoToDomain(avionDTO);
         return AvionMapper.domainToDTO(avionRepository.save(avion));
     }
+
+    @Override
+    public List<AvionDTO> obtenerAvionesActivos() {
+        return AvionMapper.domainToDTOList(avionRepository.findAllByEstado("A"));
+    }
 }

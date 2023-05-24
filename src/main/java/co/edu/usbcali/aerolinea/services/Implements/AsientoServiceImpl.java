@@ -68,4 +68,9 @@ public class AsientoServiceImpl implements AsientoService {
 
         return AsientoMapper.domainToDTO(asientoRepository.save(asiento));
     }
+
+    @Override
+    public List<AsientoDTO> obtenerAsientosActivos() {
+        return AsientoMapper.domainToDTOList(asientoRepository.findAllByEstado("A"));
+    }
 }

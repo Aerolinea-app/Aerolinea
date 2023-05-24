@@ -15,9 +15,11 @@ import java.util.List;
 @Slf4j
 public class TipoAsientoServiceImpl implements TipoAsientoService {
     private final TipoAsientoRepository tipoAsientoService;
+    private final TipoAsientoRepository tipoAsientoRepository;
     private final ModelMapper modelMapper;
-    public TipoAsientoServiceImpl(TipoAsientoRepository tipoAsientoService, ModelMapper modelMapper) {
+    public TipoAsientoServiceImpl(TipoAsientoRepository tipoAsientoService, TipoAsientoRepository tipoAsientoRepository, ModelMapper modelMapper) {
         this.tipoAsientoService = tipoAsientoService;
+        this.tipoAsientoRepository = tipoAsientoRepository;
         this.modelMapper = modelMapper;
     }
     @Override
@@ -50,5 +52,9 @@ public class TipoAsientoServiceImpl implements TipoAsientoService {
             throw new Exception("El id " + id + " no corresponde a ningun tipo de asiento!");
         }
         return TipoAsientoMapper.domainToDTO(tipoAsientoService.getReferenceById(id));
+    }
+    @Override
+    public List<TipoAsientoDTO> obtenerTipoAsientosActivos() {
+        return TipoAsientoMapper.domainToDTOList(tipoAsientoRepository.findAllByEstado("A"));
     }
 }

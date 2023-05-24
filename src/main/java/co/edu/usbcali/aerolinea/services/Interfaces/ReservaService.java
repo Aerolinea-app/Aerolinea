@@ -8,4 +8,5 @@ public interface ReservaService {
     List<ReservaDTO> obtenerReservas();
     ReservaDTO obtenerReserva(Integer id) throws Exception;
     ReservaDTO agregarReserva(ReservaDTO reservaDTO) throws Exception;
+    List<ReservaDTO> obtenerReservasActivas();
 }

@@ -54,5 +54,8 @@ public class RolUsuarioServiceImpl implements RolUsuarioService {
         RolUsuario rolUsuario = RolUsuarioMapper.dtoToDomain((rolUsuarioDTO));
         return RolUsuarioMapper.domainToDto(rolUsuarioRepository.save(rolUsuario));
     }
-
+    @Override
+    public List<RolUsuarioDTO> obtenerRolUsuariosActivos() {
+        return RolUsuarioMapper.domainToDtoList(rolUsuarioRepository.findAllByEstado("A"));
+    }
 }

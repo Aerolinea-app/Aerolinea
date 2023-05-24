@@ -76,4 +76,8 @@ public class ReservaServiceImpl implements ReservaService {
 
         return ReservaMapper.domainToDTO(reservaRepository.save(reserva));
     }
+    @Override
+    public List<ReservaDTO> obtenerReservasActivas() {
+        return ReservaMapper.domainToDTOList(reservaRepository.findAllByEstado("A"));
+    }
 }

@@ -8,4 +8,5 @@ public interface AvionService {
     List<AvionDTO> obtenerAviones();
     AvionDTO obtenerAvion(Integer id) throws Exception;
     AvionDTO agregarAvion(AvionDTO avionDTO) throws Exception;
+    List<AvionDTO> obtenerAvionesActivos();
 }

@@ -57,4 +57,8 @@ public class FacturaServiceImpl implements FacturaService {
 
         return FacturaMapper.domainToDTO(facturaRepository.save(factura));
     }
+    @Override
+    public List<FacturaDTO> obtenerFacturasActivas() {
+        return FacturaMapper.domainToDTOList(facturaRepository.findAllByEstado("A"));
+    }
 }
