@@ -19,6 +19,7 @@ public class AeropuertoUtilTest {
     public static String UBICACION2 = "Boyacá";
     public static String ESTADO2 = "A";
     public static String ID_NO_ENCONTRADO = "El aeropuerto con id %s no existe";
+    public static String NOMBRE_MALO = "El nombre del aeropuerto no puede ser nulo  o vacío";
 
     public static Aeropuerto Aeropuerto1 =
             Aeropuerto.builder().idAeropuerto(CODIGO_UNO).iata(IATA_1).nombre(NOMBRE1).ubicacion(UBICACION1).estado(ESTADO1).build();

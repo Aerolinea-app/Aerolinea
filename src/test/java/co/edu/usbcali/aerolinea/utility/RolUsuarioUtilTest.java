@@ -9,8 +9,11 @@ import java.util.List;
 
 public class RolUsuarioUtilTest {
     public static Integer CODIGO_UNO = 1;
+    public static Integer CODIGO_DOS = 2;
     public static String DESCRIPCION1 = "Cliente";
     public static String ESTADO1 = "A";
+    public static String DESCRIPTION_INVALIDA = "La descripción es invalida";
+    public static String ID_INVALID = "El rol de usuario con id %s no existe";
 
     public static RolUsuario Rolusuario1 =
             RolUsuario.builder().idRolusuario(CODIGO_UNO).descripcion(DESCRIPCION1).estado(ESTADO1).build();
@@ -18,7 +21,10 @@ public class RolUsuarioUtilTest {
             RolUsuarioDTO.builder().idRolusuario(CODIGO_UNO).descripcion(DESCRIPCION1).estado(ESTADO1).build();
     public static RolUsuarioDTO RolusuarioDTO_No_id =
             RolUsuarioDTO.builder().descripcion(DESCRIPCION1).estado(ESTADO1).build();
+    public static RolUsuarioDTO RolusuarioDTO_No_DESCRIPCION =
+            RolUsuarioDTO.builder().descripcion(null).estado(ESTADO1).build();
 
     public static List<RolUsuario> rolUsuarios = Arrays.asList(Rolusuario1);
     public static List<RolUsuarioDTO> rolusuariosDTOS = RolUsuarioMapper.domainToDtoList(rolUsuarios);
+    public static List<RolUsuarioDTO> rolUsuario_null = Arrays.asList();
 }

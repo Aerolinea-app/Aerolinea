@@ -17,6 +17,8 @@ public class AvionUtilTest {
     public static Integer CODIGO_DOS = 2;
     public static String AEROLINEA2 = "Avianca";
     public static String ESTADO2 = "I";
+    public static String AEROLINEA_MALA = "La aerolinea del avión no es valida";
+    public static String ID_INVALID = "El avión con id %s es invalido";
 
     public static Avion Avion1 =
             Avion.builder().idAvion(CODIGO_UNO).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
@@ -26,7 +28,10 @@ public class AvionUtilTest {
             AvionDTO.builder().idAvion(CODIGO_UNO).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
     public static AvionDTO AvionDTO2_No_id =
             AvionDTO.builder().aerolineaAvion(AEROLINEA2).estado(ESTADO2).build();
+    public static AvionDTO AVIONDTO_AEROLINEA_NULL =
+            AvionDTO.builder().aerolineaAvion(null).estado(ESTADO2).build();
 
     public static List<Avion> aviones = Arrays.asList(Avion1, Avion2);
     public static List<AvionDTO> avionDTOS = AvionMapper.domainToDTOList(aviones);
+    public static List<AvionDTO> AVIONESDTO_VACIO = Arrays.asList();
 }

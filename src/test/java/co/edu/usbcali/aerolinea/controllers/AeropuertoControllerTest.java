@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -61,6 +63,26 @@ public class AeropuertoControllerTest {
             aeropuertoController.obtenerAeropuerto(AeropuertoUtilTest.CODIGO_DOS);
         } catch (Exception e) {
             assertEquals(String.format(AeropuertoUtilTest.ID_NO_ENCONTRADO, AeropuertoUtilTest.CODIGO_DOS), e.getMessage());
+        }
+    }
+    //Prueba Buena
+    @Test
+    public void guardarAeropuerto() throws Exception {
+        when(aeropuertoService.agregarAeropuerto(any())).thenReturn(AeropuertoUtilTest.AeropuertoDTO1);
+
+        ResponseEntity<AeropuertoDTO> response = aeropuertoController.agregarAeropuerto(AeropuertoUtilTest.AeropuertoDTO1);
+
+        verify(aeropuertoService).agregarAeropuerto(eq(AeropuertoUtilTest.AeropuertoDTO1));
+
+        assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
+    }
+    //Prueba mala
+    @Test
+    public void guardarAeropuerto_mala() {
+        try {
+            aeropuertoController.agregarAeropuerto(AeropuertoUtilTest.AeropuertoDTO1);
+        } catch (Exception e) {
+            assertEquals(AeropuertoUtilTest.NOMBRE_MALO, e.getMessage());
         }
     }
 }

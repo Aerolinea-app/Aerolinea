@@ -8,9 +8,12 @@ import java.util.List;
 
 public class AsientoUtilTest {
     public static Integer CODIGO1 = 1;
+    public static Integer CODIGO2 = 2;
     public static String UBICACION = "Primera fila";
     public static long PRECIO = 100000;
     public static String ESTADO = "A";
+    public static String UBICACION_MALO = "La ubicación del asiento no valida";
+    public static String ID_NULL = "El asiento con id %s no existe";
 
     public static Asiento asiento1 = Asiento.builder()
             .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.Tipoasiento1).idAvion(AvionUtilTest.Avion1).ubicacion(UBICACION).precio(PRECIO).estado(ESTADO).build();
@@ -21,4 +24,10 @@ public class AsientoUtilTest {
 
     public static AsientoDTO asientoDTO = AsientoDTO.builder()
             .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO_UNO).idAvion(AvionUtilTest.CODIGO_UNO).ubicacion(UBICACION).precio(PRECIO).estado(ESTADO).build();
+
+    public static AsientoDTO asientoDTO_malo = AsientoDTO.builder()
+            .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO_UNO).idAvion(AvionUtilTest.CODIGO_UNO).ubicacion(null).precio(PRECIO).estado(ESTADO).build();
+
+    public static List<AsientoDTO> asientosDTO = Arrays.asList(asientoDTO, asientoDTO_malo);
+    public static List<AsientoDTO> asientos_vacio = Arrays.asList();
 }
