@@ -14,14 +14,16 @@ public class UsuarioUtilTest {
     public static String PELLIDO = "Barona";
     public static String CORREO = "prueba@gmail.com";
     public static String ESTADO = "A";
+    public static String ID_MALO = "El id del usuario no puede ser nula o vacía";
 
     public static Usuario Usuario1 = Usuario.builder()
             .idUsuario(CODIGO1).idRolUsuario(RolUsuarioUtilTest.Rolusuario1).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
     public static UsuarioDTO UsuarioDTO_Malo = UsuarioDTO.builder()
             .idRolusuario(RolUsuarioUtilTest.CODIGO_UNO).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
-
-    public static List<Usuario> usuarioList = Arrays.asList(Usuario1);
-
     public static UsuarioDTO usuarioDTO = UsuarioDTO.builder()
             .idUsuario(CODIGO1).idRolusuario(RolUsuarioUtilTest.CODIGO_UNO).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
+
+    public static List<Usuario> usuarioList = Arrays.asList(Usuario1);
+    public static List<UsuarioDTO> usuariosDTOS = Arrays.asList(usuarioDTO, UsuarioDTO_Malo);
+    public static List<UsuarioDTO> usuariosDTOS_vacio = Arrays.asList();
 }
