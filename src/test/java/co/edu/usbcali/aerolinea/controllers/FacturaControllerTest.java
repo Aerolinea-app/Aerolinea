@@ -43,7 +43,7 @@ public class FacturaControllerTest {
         try {
             facturaController.guardarFactura(FacturaUtilTest.FACTURADTO_FECHA_NULL);
         } catch (Exception e) {
-            assertEquals(FacturaUtilTest.FECHA_REQUIRED_MESSAGE, e.getMessage());
+            assertEquals(FacturaUtilTest.FECHA_INVALID, e.getMessage());
         }
     }
     //Prueba buena

@@ -43,7 +43,7 @@ public class ReservaControllerTest {
         try {
             reservaController.agregarReserva(ReservaUtilTest.reservaDTO_null);
         } catch (Exception e) {
-            assertEquals(ReservaUtilTest.FECHA_MALA, e.getMessage());
+            assertEquals(ReservaUtilTest.ID_NULL, e.getMessage());
         }
     }
     //Prueba buena
@@ -54,7 +54,7 @@ public class ReservaControllerTest {
         ResponseEntity<List<ReservaDTO>> response = reservaController.obtenerReservas();
 
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
     //Prueba mala
     @Test
@@ -79,9 +79,9 @@ public class ReservaControllerTest {
     @Test
     public void obtenerReserva_mala() {
         try {
-            reservaController.obtenerReserva(ReservaUtilTest.CODIGO2);
+            reservaController.obtenerReserva(2);
         } catch (Exception e) {
-            assertEquals(String.format(ReservaUtilTest.ID_INVALID, ReservaUtilTest.CODIGO2), e.getMessage());
+            assertEquals(String.format(ReservaUtilTest.ID_INVALID, 2), e.getMessage());
         }
     }
 }

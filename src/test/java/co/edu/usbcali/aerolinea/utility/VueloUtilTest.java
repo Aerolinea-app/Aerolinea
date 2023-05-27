@@ -11,12 +11,8 @@ import java.util.List;
 
 public class VueloUtilTest {
     public static Integer CODIGO1 = 1;
-    public static long PRECIO1 = 100000;
-    public static Date HORA_SALIDA = new Date();
-    public static Date HORA_LLEGADA = new Date();
-    public static Integer CODIGO2 = 2;
-    public static String FECHA_FUTURO1 = "2023-11-27 08:00";
-    public static String FECHA_FUTURO2 = "2023-12-27 10:00";
+    public static String FECHA_FUTURO1 = "2023-02-22 10:00";
+    public static String FECHA_FUTURO2 = "2023-02-13 18:00";
     public static String PATTERN_FECHA = "yyyy-MM-dd HH:mm";
     public static Date FECHA_FUTURO_DATE1;
     public static Date FECHA_FUTURO_DATE2;
@@ -40,73 +36,15 @@ public class VueloUtilTest {
     }
 
     public static Vuelo vuelo1 = Vuelo.builder()
-            .idVuelo(1)
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1)
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2)
-            .precio(100000)
-            .fechaHoraSalida(FECHA_FUTURO_DATE1)
-            .fechaHoraLlegada(FECHA_FUTURO_DATE2)
-            .precioAsientoPreferencial(50000)
-            .precioAsientoVip(30000)
-            .precioAsientoTurista(10000)
-            .estado("A")
-            .build();
-
+            .idVuelo(1).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2).precio(180000).fechaHoraSalida(FECHA_FUTURO_DATE1).fechaHoraLlegada(FECHA_FUTURO_DATE2).precioAsientoPreferencial(80000).precioAsientoVip(40000).precioAsientoTurista(12000).estado("A").build();
     public static Vuelo vuelo2 = Vuelo.builder()
-            .idVuelo(2)
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1)
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2)
-            .precio(150000)
-            .fechaHoraSalida(FECHA_FUTURO_DATE1)
-            .fechaHoraLlegada(FECHA_FUTURO_DATE2)
-            .precioAsientoPreferencial(80000)
-            .precioAsientoVip(50000)
-            .precioAsientoTurista(30000)
-            .estado("A")
-            .build();
-
+            .idVuelo(2).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2).precio(200000).fechaHoraSalida(FECHA_FUTURO_DATE1).fechaHoraLlegada(FECHA_FUTURO_DATE2).precioAsientoPreferencial(90000).precioAsientoVip(60000).precioAsientoTurista(23000).estado("A").build();
     public static VueloDTO vueloDTO1 = VueloDTO.builder()
-            .idVuelo(1)
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .precio(100000)
-            .fechaHoraSalida(FECHA_FUTURO_DATE1)
-            .fechaHoraLlegada(FECHA_FUTURO_DATE2)
-            .precioAsientoPreferencial(50000)
-            .precioAsientoVip(30000)
-            .precioAsientoTurista(10000)
-            .estado("A")
-            .build();
-
-    public static VueloDTO vueloDTO2 = VueloDTO.builder()
-            .idVuelo(2)
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .precio(150000)
-            .fechaHoraSalida(FECHA_FUTURO_DATE1)
-            .fechaHoraLlegada(FECHA_FUTURO_DATE2)
-            .precioAsientoPreferencial(80000)
-            .precioAsientoVip(50000)
-            .precioAsientoTurista(30000)
-            .estado("A")
-            .build();
-
+            .idVuelo(1).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto()).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto()).precio(210000).fechaHoraSalida(FECHA_FUTURO_DATE1).fechaHoraLlegada(FECHA_FUTURO_DATE2).precioAsientoPreferencial(80000).precioAsientoVip(50000).precioAsientoTurista(30000).estado("A").build();
     public static VueloDTO vueloDTO_malo = VueloDTO.builder()
-            .idVuelo(1)
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .precio(100000)
-            .fechaHoraSalida(null)
-            .fechaHoraLlegada(FECHA_FUTURO_DATE2)
-            .precioAsientoPreferencial(50000)
-            .precioAsientoVip(30000)
-            .precioAsientoTurista(10000)
-            .estado("A")
-            .build();
+            .idVuelo(1).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto()).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto()).precio(130000).fechaHoraSalida(null).fechaHoraLlegada(FECHA_FUTURO_DATE2).precioAsientoPreferencial(60000).precioAsientoVip(40000).precioAsientoTurista(20000).estado("A").build();
 
-    public static List<Vuelo> vuelos = Arrays.asList(vuelo1, vuelo2);
-
-    public static List<VueloDTO> vuelosDTOS = Arrays.asList(vueloDTO1, vueloDTO2);
+    public static List<VueloDTO> vuelosDTOS = Arrays.asList(vueloDTO1);
 
     public static List<VueloDTO> vuelosDTOS_vacio = Arrays.asList();
 

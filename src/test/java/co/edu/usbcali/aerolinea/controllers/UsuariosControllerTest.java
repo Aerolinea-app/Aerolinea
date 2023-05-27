@@ -79,9 +79,9 @@ public class UsuariosControllerTest {
     @Test
     public void obtenerUsuario_malo() {
         try {
-            usuarioController.obtenerUsuario(UsuarioUtilTest.CODIGO2);
+            usuarioController.obtenerUsuario(2);
         } catch (Exception e) {
-            assertEquals(String.format(UsuarioUtilTest.ID_MALO, UsuarioUtilTest.CODIGO2), e.getMessage());
+            assertEquals(String.format(UsuarioUtilTest.ID_MALO, 2), e.getMessage());
         }
     }
 

@@ -50,9 +50,10 @@ public class AeropuertoControllerTest {
     //Prueba buena
     @Test
     public void obtenerAeropuerto() throws Exception {
+
         when(aeropuertoService.obtenerAeropuerto(any())).thenReturn(AeropuertoUtilTest.AeropuertoDTO1);
 
-        ResponseEntity<AeropuertoDTO> response = aeropuertoController.obtenerAeropuerto(AeropuertoUtilTest.CODIGO_UNO);
+        ResponseEntity<AeropuertoDTO> response = aeropuertoController.obtenerAeropuerto(AeropuertoUtilTest.CODIGO1);
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     }
@@ -60,9 +61,9 @@ public class AeropuertoControllerTest {
     @Test
     public void obtenerAeropuerto_malo() {
         try {
-            aeropuertoController.obtenerAeropuerto(AeropuertoUtilTest.CODIGO_DOS);
+            aeropuertoController.obtenerAeropuerto(AeropuertoUtilTest.CODIGO1);
         } catch (Exception e) {
-            assertEquals(String.format(AeropuertoUtilTest.ID_NO_ENCONTRADO, AeropuertoUtilTest.CODIGO_DOS), e.getMessage());
+            assertEquals(String.format(AeropuertoUtilTest.ID_NO_ENCONTRADO, AeropuertoUtilTest.CODIGO1), e.getMessage());
         }
     }
     //Prueba Buena

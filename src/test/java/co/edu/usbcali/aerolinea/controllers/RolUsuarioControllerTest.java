@@ -70,7 +70,7 @@ public class RolUsuarioControllerTest {
     public void obtenerRolUsuario() throws Exception {
         when(rolUsuarioService.obtenerRolUsuario(any())).thenReturn(RolUsuarioUtilTest.RolusuarioDTO);
 
-        ResponseEntity<RolUsuarioDTO> response = rolUsuarioController.obtenerRolUsuario(RolUsuarioUtilTest.CODIGO_UNO);
+        ResponseEntity<RolUsuarioDTO> response = rolUsuarioController.obtenerRolUsuario(RolUsuarioUtilTest.CODIGO1);
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     }
@@ -78,9 +78,9 @@ public class RolUsuarioControllerTest {
     @Test
     public void obtenerRolUsuario_mala() {
         try {
-            rolUsuarioController.obtenerRolUsuario(RolUsuarioUtilTest.CODIGO_DOS);
+            rolUsuarioController.obtenerRolUsuario(2);
         } catch (Exception e) {
-            assertEquals(String.format(RolUsuarioUtilTest.ID_INVALID, RolUsuarioUtilTest.CODIGO_DOS), e.getMessage());
+            assertEquals(String.format(RolUsuarioUtilTest.ID_INVALID, 2), e.getMessage());
         }
     }
 }

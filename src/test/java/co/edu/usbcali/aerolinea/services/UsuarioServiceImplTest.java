@@ -123,9 +123,5 @@ public class UsuarioServiceImplTest {
 
         assertTrue(usuarioDTOList.isEmpty());
     }
-    //Pureba unitaria buena
-    @Test
-    void agregarUsuario() throws Exception {
-        //No sirvio
-    }
+
 }

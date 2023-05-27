@@ -19,11 +19,10 @@ public class FacturaUtilTest {
     public static Integer CODIGO2 = 2;
     public static Date FECHA2 = new Date();
     public static String ESTADO2 = "I";
-
-    public static String FECHA_FUTURO = "2023-11-27 08:00";
+    public static String FECHA_FUTURO = "2023-11-24 01:00";
     public static String PATTERN_FECHA = "yyyy-MM-dd HH:mm";
     public static Date FECHA_FUTURO_DATE;
-    public static String FECHA_REQUIRED_MESSAGE = "La fecha de la factura no puede ser nula o vacía";
+    public static String FECHA_INVALID = "La fecha de la factura es invalida";
     public static String ID_INVALID = "La factura con id %s no existe";
 
     static {
@@ -35,41 +34,16 @@ public class FacturaUtilTest {
     }
 
     public static Factura Factura1 = Factura.builder()
-            .idFactura(CODIGO1)
-            .idUsuario(UsuarioUtilTest.Usuario1)
-            .fecha(FECHA1)
-            .estado(ESTADO1)
-            .build();
-
+            .idFactura(CODIGO1).idUsuario(UsuarioUtilTest.Usuario1).fecha(FECHA1).estado(ESTADO1).build();
     public static Factura Factura2 = Factura.builder()
-            .idFactura(CODIGO2)
-            .idUsuario(UsuarioUtilTest.Usuario1)
-            .fecha(FECHA2)
-            .estado(ESTADO2)
-            .build();
-
+            .idFactura(CODIGO2).idUsuario(UsuarioUtilTest.Usuario1).fecha(FECHA2).estado(ESTADO2).build();
     public static FacturaDTO facturaDTO = FacturaDTO.builder()
-            .idFactura(1)
-            .idUsuario(UsuarioUtilTest.CODIGO1)
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
+            .idFactura(1).idUsuario(UsuarioUtilTest.CODIGO1).fecha(FECHA_FUTURO_DATE).estado("A").build();
     public static FacturaDTO factura2DTO = FacturaDTO.builder()
-            .idFactura(2)
-            .idUsuario(UsuarioUtilTest.CODIGO2)
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
-
+            .idFactura(2).idUsuario(UsuarioUtilTest.CODIGO2).fecha(FECHA_FUTURO_DATE).estado("A").build();
     public static FacturaDTO FACTURADTO_FECHA_NULL = FacturaDTO.builder()
-            .idFactura(1)
-            .idUsuario(UsuarioUtilTest.CODIGO1)
-            .fecha(null)
-            .estado("A")
-            .build();
+            .idFactura(1).idUsuario(UsuarioUtilTest.CODIGO1).fecha(null).estado("A").build();
 
-    public static List<Factura> facturaList = Arrays.asList(Factura1, Factura2);
     public static List<FacturaDTO> facturaDTOList = Arrays.asList(facturaDTO, factura2DTO);
-
     public static List<FacturaDTO> facturas_vacio = Arrays.asList();
 }

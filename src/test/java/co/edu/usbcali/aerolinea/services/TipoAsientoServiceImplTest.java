@@ -101,12 +101,12 @@ public class TipoAsientoServiceImplTest {
     //Prueba unitaria buena
     @Test
     void agregarTipoAsiento() throws Exception {
-        given(tipoAsientoRepository.existsById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(true);
-        given(tipoAsientoRepository.getReferenceById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(TipoAsientoUtilTest.Tipoasiento1);
+        given(tipoAsientoRepository.existsById(TipoAsientoUtilTest.CODIGO1)).willReturn(true);
+        given(tipoAsientoRepository.getReferenceById(TipoAsientoUtilTest.CODIGO1)).willReturn(TipoAsientoUtilTest.Tipoasiento1);
         given(tipoAsientoRepository.save(TipoAsientoUtilTest.Tipoasiento1)).willReturn(TipoAsientoUtilTest.Tipoasiento1);
         TipoAsientoDTO tipoaGuardar = tipoAsientoService.agregarTipoAsiento(TipoAsientoUtilTest.TipoasientoDTO);
 
-        assertEquals(TipoAsientoUtilTest.CODIGO_UNO, tipoaGuardar.getIdTipoa());
+        assertEquals(TipoAsientoUtilTest.CODIGO1, tipoaGuardar.getIdTipoa());
         assertEquals(TipoAsientoUtilTest.ESTADO1, tipoaGuardar.getEstado());
     }
     //Prueba unitaria mala

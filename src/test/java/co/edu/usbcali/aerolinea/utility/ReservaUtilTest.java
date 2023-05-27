@@ -11,15 +11,10 @@ import java.util.List;
 
 public class ReservaUtilTest {
     public static Integer CODIGO1 = 1;
-    public static long PRECIO_TOTAL_UNO = 100000;
-    public static String ESTADO_PAGO_UNO = "A";
-    public static Date FECHA_UNO = new Date();
-    public static String ESTADO_UNO = "A";
-    public static Integer CODIGO2 = 2;
-    public static String FECHA_FUTURO = "2023-11-27 08:00";
+    public static String FECHA_FUTURO = "2023-08-12 08:00";
     public static String PATTERN_FECHA = "yyyy-MM-dd HH:mm";
     public static Date FECHA_FUTURO_DATE;
-    public static String FECHA_MALA = "La fecha de la reserva no puede ser nula";
+    public static String ID_NULL = "El id de la reserva es invalida!";
     public static String ID_INVALID = "La reserva con id %s no existe";
 
     static {
@@ -30,65 +25,14 @@ public class ReservaUtilTest {
         }
     }
 
-
     public static Reserva reserva1 = Reserva.builder()
-            .idReserva(1)
-            .idVuelo(VueloUtilTest.vuelo1)
-            .idAsiento(AsientoUtilTest.asiento1)
-            .idUsuario(UsuarioUtilTest.Usuario1)
-            .precioTotal(100000)
-            .estadoPago("A")
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
-
-    public static Reserva reserva2 = Reserva.builder()
-            .idReserva(2)
-            .idVuelo(VueloUtilTest.vuelo1)
-            .idAsiento(AsientoUtilTest.asiento1)
-            .idUsuario(UsuarioUtilTest.Usuario1)
-            .precioTotal(150000)
-            .estadoPago("A")
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
-
+            .idReserva(1).idVuelo(VueloUtilTest.vuelo1).idAsiento(AsientoUtilTest.asiento1).idUsuario(UsuarioUtilTest.Usuario1).precioTotal(200000).estadoPago("A").fecha(FECHA_FUTURO_DATE).estado("A").build();
     public static ReservaDTO reservaDTO1 = ReservaDTO.builder()
-            .idReserva(1)
-            .idVuelo(VueloUtilTest.vuelo1.getIdVuelo())
-            .idAsiento(AsientoUtilTest.asiento1.getIdAsiento())
-            .idUsuario(UsuarioUtilTest.Usuario1.getIdUsuario())
-            .precioTotal(100000)
-            .estadoPago("A")
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
-
-    public static ReservaDTO reservaDTO2 = ReservaDTO.builder()
-            .idReserva(2)
-            .idVuelo(VueloUtilTest.vuelo1.getIdVuelo())
-            .idAsiento(AsientoUtilTest.asiento1.getIdAsiento())
-            .idUsuario(UsuarioUtilTest.Usuario1.getIdUsuario())
-            .precioTotal(150000)
-            .estadoPago("A")
-            .fecha(FECHA_FUTURO_DATE)
-            .estado("A")
-            .build();
-
+            .idReserva(1).idVuelo(VueloUtilTest.vuelo1.getIdVuelo()).idAsiento(AsientoUtilTest.asiento1.getIdAsiento()).idUsuario(UsuarioUtilTest.Usuario1.getIdUsuario()).precioTotal(130000).estadoPago("A").fecha(FECHA_FUTURO_DATE).estado("A").build();
     public static ReservaDTO reservaDTO_null = ReservaDTO.builder()
-            .idReserva(1)
-            .idVuelo(VueloUtilTest.vuelo1.getIdVuelo())
-            .idAsiento(AsientoUtilTest.asiento1.getIdAsiento())
-            .idUsuario(UsuarioUtilTest.Usuario1.getIdUsuario())
-            .precioTotal(100000)
-            .estadoPago("A")
-            .fecha(null)
-            .estado("A")
-            .build();
+            .idReserva(null).idVuelo(VueloUtilTest.vuelo1.getIdVuelo()).idAsiento(AsientoUtilTest.asiento1.getIdAsiento()).idUsuario(UsuarioUtilTest.Usuario1.getIdUsuario()).precioTotal(160000).estadoPago("A").fecha(FECHA_FUTURO_DATE).estado("A").build();
 
-    public static List<Reserva> reservas = Arrays.asList(reserva1, reserva2);
-
-    public static List<ReservaDTO> reservasDTOS = Arrays.asList(reservaDTO1, reservaDTO2);
+    public static List<ReservaDTO> reservasDTOS = Arrays.asList(reservaDTO1);
 
     public static List<ReservaDTO> reservaDTO_vacio = Arrays.asList();
 

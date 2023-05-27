@@ -103,19 +103,18 @@ public class AvionServiceImplTest {
     //Prueba unitaria buena
     @Test
     void agregarAvion() throws Exception {
-        given(avionRepository.existsById(AvionUtilTest.CODIGO_UNO)).willReturn(true);
-        given(avionRepository.getReferenceById(AvionUtilTest.CODIGO_UNO)).willReturn(AvionUtilTest.Avion1);
+        given(avionRepository.existsById(AvionUtilTest.CODIGO1)).willReturn(true);
+        given(avionRepository.getReferenceById(AvionUtilTest.CODIGO1)).willReturn(AvionUtilTest.Avion1);
         given(avionRepository.save(AvionUtilTest.Avion1)).willReturn(AvionUtilTest.Avion1);
         AvionDTO avionGuardado = avionService.agregarAvion(AvionUtilTest.AvionDTO1);
 
-        assertEquals(AvionUtilTest.CODIGO_UNO, avionGuardado.getIdAvion());
+        assertEquals(AvionUtilTest.CODIGO1, avionGuardado.getIdAvion());
         assertEquals(AvionUtilTest.AEROLINEA1, avionGuardado.getAerolineaAvion());
     }
     //Prueba unitaria mala
     @Test
-    void agregarAvion_Exception(){
-        Exception exception = assertThrows(Exception.class, () ->
-                avionService.agregarAvion(AvionUtilTest.AvionDTO2_No_id));
+    void agregarAvion_malo(){
+        Exception exception = assertThrows(Exception.class, () -> avionService.agregarAvion(AvionUtilTest.AvionDTO2_No_id));
 
         String expectedMessage = "El id del avion es invalido!";
         assertEquals(expectedMessage, exception.getMessage());

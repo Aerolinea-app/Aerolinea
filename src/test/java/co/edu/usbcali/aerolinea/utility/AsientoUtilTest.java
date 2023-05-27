@@ -9,8 +9,8 @@ import java.util.List;
 public class AsientoUtilTest {
     public static Integer CODIGO1 = 1;
     public static Integer CODIGO2 = 2;
-    public static String UBICACION = "Primera fila";
-    public static long PRECIO = 100000;
+    public static String UBICACION = "Al lado de la ventana";
+    public static long PRECIO = 130000;
     public static String ESTADO = "A";
     public static String UBICACION_MALO = "La ubicación del asiento no valida";
     public static String ID_NULL = "El asiento con id %s no existe";
@@ -23,10 +23,10 @@ public class AsientoUtilTest {
     public static List<Asiento> asientoList = Arrays.asList(asiento1, asiento_malo);
 
     public static AsientoDTO asientoDTO = AsientoDTO.builder()
-            .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO_UNO).idAvion(AvionUtilTest.CODIGO_UNO).ubicacion(UBICACION).precio(PRECIO).estado(ESTADO).build();
+            .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO1).idAvion(AvionUtilTest.CODIGO1).ubicacion(UBICACION).precio(PRECIO).estado(ESTADO).build();
 
     public static AsientoDTO asientoDTO_malo = AsientoDTO.builder()
-            .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO_UNO).idAvion(AvionUtilTest.CODIGO_UNO).ubicacion(null).precio(PRECIO).estado(ESTADO).build();
+            .idAsiento(CODIGO1).idTipoa(TipoAsientoUtilTest.CODIGO1).idAvion(AvionUtilTest.CODIGO2).ubicacion(null).precio(PRECIO).estado(ESTADO).build();
 
     public static List<AsientoDTO> asientosDTO = Arrays.asList(asientoDTO, asientoDTO_malo);
     public static List<AsientoDTO> asientos_vacio = Arrays.asList();

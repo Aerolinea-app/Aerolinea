@@ -11,21 +11,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AvionUtilTest {
-    public static Integer CODIGO_UNO = 1;
-    public static String AEROLINEA1 = "Avianca";
+    public static Integer CODIGO1 = 1;
+    public static String AEROLINEA1 = "FlowAir";
     public static String ESTADO1 = "A";
-    public static Integer CODIGO_DOS = 2;
-    public static String AEROLINEA2 = "Avianca";
+    public static Integer CODIGO2 = 2;
+    public static String AEROLINEA2 = "LAN";
     public static String ESTADO2 = "I";
-    public static String AEROLINEA_MALA = "La aerolinea del avión no es valida";
+    public static String AEROLINEA_MALA = "La aerolinea del avión es invalida";
     public static String ID_INVALID = "El avión con id %s es invalido";
 
     public static Avion Avion1 =
-            Avion.builder().idAvion(CODIGO_UNO).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
+            Avion.builder().idAvion(CODIGO1).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
     public static Avion Avion2 =
-            Avion.builder().idAvion(CODIGO_DOS).aerolineaAvion(AEROLINEA2).estado(ESTADO2).build();
+            Avion.builder().idAvion(CODIGO2).aerolineaAvion(AEROLINEA2).estado(ESTADO2).build();
     public static AvionDTO AvionDTO1 =
-            AvionDTO.builder().idAvion(CODIGO_UNO).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
+            AvionDTO.builder().idAvion(CODIGO1).aerolineaAvion(AEROLINEA1).estado(ESTADO1).build();
     public static AvionDTO AvionDTO2_No_id =
             AvionDTO.builder().aerolineaAvion(AEROLINEA2).estado(ESTADO2).build();
     public static AvionDTO AVIONDTO_AEROLINEA_NULL =

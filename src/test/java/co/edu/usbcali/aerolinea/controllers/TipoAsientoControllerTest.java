@@ -71,7 +71,7 @@ public class TipoAsientoControllerTest {
     public void obtenerTipoAsiento() throws Exception {
         when(tipoAsientoService.obtenerTipoAsiento(any())).thenReturn(TipoAsientoUtilTest.TipoasientoDTO);
 
-        ResponseEntity<TipoAsientoDTO> response = tipoAsientoController.obtenerTipoAsiento(TipoAsientoUtilTest.CODIGO_UNO);
+        ResponseEntity<TipoAsientoDTO> response = tipoAsientoController.obtenerTipoAsiento(TipoAsientoUtilTest.CODIGO1);
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     }
@@ -79,9 +79,9 @@ public class TipoAsientoControllerTest {
     @Test
     public void obtenerTipoAsiento_malo() {
         try {
-            tipoAsientoController.obtenerTipoAsiento(TipoAsientoUtilTest.CODIGO_DOS);
+            tipoAsientoController.obtenerTipoAsiento(2);
         } catch (Exception e) {
-            assertEquals(String.format(TipoAsientoUtilTest.ID_INVALID, TipoAsientoUtilTest.CODIGO_DOS), e.getMessage());
+            assertEquals(String.format(TipoAsientoUtilTest.ID_INVALID, 2), e.getMessage());
         }
     }
 }

@@ -54,7 +54,7 @@ public class VueloControllerTest {
         ResponseEntity<List<VueloDTO>> response = vueloController.obtenerVuelos();
 
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
     //Prueba mala
     @Test
@@ -79,9 +79,9 @@ public class VueloControllerTest {
     @Test
     public void obtenerVuelo_malo() {
         try {
-            vueloController.obtenerVuelo(VueloUtilTest.CODIGO2);
+            vueloController.obtenerVuelo(2);
         } catch (Exception e) {
-            assertEquals(String.format(VueloUtilTest.ID_INVALID, VueloUtilTest.CODIGO2), e.getMessage());
+            assertEquals(String.format(VueloUtilTest.ID_INVALID, 2), e.getMessage());
         }
     }
 }

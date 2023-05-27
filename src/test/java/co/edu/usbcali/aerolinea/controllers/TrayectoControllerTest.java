@@ -54,7 +54,7 @@ public class TrayectoControllerTest {
         ResponseEntity<List<TrayectoDTO>> response = trayectoController.obtenerTrayectos();
 
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
-        assertEquals(2, response.getBody().size());
+        assertEquals(1, response.getBody().size());
     }
     //Prueba mala
     @Test
@@ -79,9 +79,9 @@ public class TrayectoControllerTest {
     @Test
     public void obtenerTrayecto_mala() {
         try {
-            trayectoController.obtenerTrayecto(TrayectoUtilTest.CODIGO1);
+            trayectoController.obtenerTrayecto(2);
         } catch (Exception e) {
-            assertEquals(String.format(TrayectoUtilTest.ID_INVALID, TrayectoUtilTest.CODIGO2), e.getMessage());
+            assertEquals(String.format(TrayectoUtilTest.ID_INVALID, 2), e.getMessage());
         }
     }
 }

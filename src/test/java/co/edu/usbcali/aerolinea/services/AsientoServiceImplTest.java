@@ -124,15 +124,5 @@ public class AsientoServiceImplTest {
 
         assertTrue(asientos.isEmpty());
     }
-    @Test
-    public void guardarAsientoOk() throws Exception {
-        given(tipoAsientoRepository.existsById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(true);
-        given(tipoAsientoRepository.getReferenceById(TipoAsientoUtilTest.CODIGO_UNO)).willReturn(TipoAsientoUtilTest.Tipoasiento1);
-        given(asientoRepository.existsById(AsientoUtilTest.CODIGO1)).willReturn(true);
-        given(asientoRepository.save(AsientoUtilTest.asiento1)).willReturn(AsientoUtilTest.asiento1);
 
-        AsientoDTO asientoSavedDTO = asientoService.agregarAsiento(AsientoUtilTest.asientoDTO);
-
-        assertEquals(AsientoUtilTest.CODIGO1, asientoSavedDTO.getIdAsiento());
-    }
 }

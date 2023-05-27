@@ -70,7 +70,7 @@ public class AvionesControllerTest {
     public void obtenerAvionOk() throws Exception {
         when(avionService.obtenerAvion(any())).thenReturn(AvionUtilTest.AvionDTO1);
 
-        ResponseEntity<AvionDTO> response = avionController.obtenerAvion(AvionUtilTest.CODIGO_UNO);
+        ResponseEntity<AvionDTO> response = avionController.obtenerAvion(AvionUtilTest.CODIGO1);
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     }
@@ -78,9 +78,9 @@ public class AvionesControllerTest {
     @Test
     public void obtenerAvionNotOk() {
         try {
-            avionController.obtenerAvion(AvionUtilTest.CODIGO_DOS);
+            avionController.obtenerAvion(AvionUtilTest.CODIGO2);
         } catch (Exception e) {
-            assertEquals(String.format(AvionUtilTest.ID_INVALID, AvionUtilTest.CODIGO_DOS), e.getMessage());
+            assertEquals(String.format(AvionUtilTest.ID_INVALID, AvionUtilTest.CODIGO2), e.getMessage());
         }
     }
 }

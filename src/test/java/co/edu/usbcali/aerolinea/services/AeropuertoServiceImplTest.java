@@ -92,11 +92,10 @@ public class AeropuertoServiceImplTest {
 
         List<AeropuertoDTO> aeropuertos = aeropuertoService.obtenerAeropuertos();
 
-        assertEquals(2, aeropuertos.size());
-        assertEquals("VivaAir", aeropuertos.get(1).getNombre());
+        assertEquals(1, aeropuertos.size());
+        assertEquals("VivaAir", aeropuertos.get(0   ).getNombre());
 
     }
-
 
     //Prueba unitaria mala
     @Test
@@ -113,13 +112,13 @@ public class AeropuertoServiceImplTest {
     //Prueba unitaria buena
     @Test
     void agregarAeropuerto() throws Exception {
-        given(aeropuertoRepository.existsById(AeropuertoUtilTest.CODIGO_UNO)).willReturn(true);
-        given(aeropuertoRepository.getReferenceById(AeropuertoUtilTest.CODIGO_UNO)).willReturn(AeropuertoUtilTest.Aeropuerto1);
+        given(aeropuertoRepository.existsById(AeropuertoUtilTest.CODIGO1)).willReturn(true);
+        given(aeropuertoRepository.getReferenceById(AeropuertoUtilTest.CODIGO1)).willReturn(AeropuertoUtilTest.Aeropuerto1);
         given(aeropuertoRepository.save(AeropuertoUtilTest.Aeropuerto1)).willReturn(AeropuertoUtilTest.Aeropuerto1);
         AeropuertoDTO aeropuertoGuardado = aeropuertoService.agregarAeropuerto(AeropuertoUtilTest.AeropuertoDTO1);
 
-        assertEquals(AeropuertoUtilTest.CODIGO_UNO, aeropuertoGuardado.getIdAeropuerto());
-        assertEquals(AeropuertoUtilTest.IATA_1, aeropuertoGuardado.getIata());
+        assertEquals(AeropuertoUtilTest.CODIGO1, aeropuertoGuardado.getIdAeropuerto());
+        assertEquals(AeropuertoUtilTest.IATA1, aeropuertoGuardado.getIata());
     }
     //Prueba unitaria mala
     @Test

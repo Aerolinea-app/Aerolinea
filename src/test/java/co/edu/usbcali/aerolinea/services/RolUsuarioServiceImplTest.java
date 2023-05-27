@@ -103,12 +103,12 @@ public class RolUsuarioServiceImplTest {
     //Prueba unitaria buena
     @Test
     void guardarRolUsuario() throws Exception {
-        given(rolUsuarioRepository.existsById(RolUsuarioUtilTest.CODIGO_UNO)).willReturn(true);
-        given(rolUsuarioRepository.getReferenceById(RolUsuarioUtilTest.CODIGO_UNO)).willReturn(RolUsuarioUtilTest.Rolusuario1);
+        given(rolUsuarioRepository.existsById(RolUsuarioUtilTest.CODIGO1)).willReturn(true);
+        given(rolUsuarioRepository.getReferenceById(RolUsuarioUtilTest.CODIGO1)).willReturn(RolUsuarioUtilTest.Rolusuario1);
         given(rolUsuarioRepository.save(RolUsuarioUtilTest.Rolusuario1)).willReturn(RolUsuarioUtilTest.Rolusuario1);
         RolUsuarioDTO rolUsuarioGuardar = rolUsuarioService.guardarRolUsuario(RolUsuarioUtilTest.RolusuarioDTO);
 
-        assertEquals(RolUsuarioUtilTest.CODIGO_UNO, rolUsuarioGuardar.getIdRolusuario());
+        assertEquals(RolUsuarioUtilTest.CODIGO1, rolUsuarioGuardar.getIdRolusuario());
         assertEquals(RolUsuarioUtilTest.DESCRIPCION1, rolUsuarioGuardar.getDescripcion());
     }
     //Prueba unitaria mala

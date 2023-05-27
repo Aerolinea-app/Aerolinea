@@ -12,16 +12,12 @@ import java.util.List;
 
 public class TrayectoUtilTest {
     public static Integer CODIGO1 = 1;
-    public static Date HORA_SALIDA1 = new Date();
-    public static Date HORA_LLEGADA1 = new Date();
-    public static String ESTADO1 = "A";
-    public static Integer CODIGO2 = 2;
-    public static String FECHA_FUTURO1 = "2023-11-27 08:00";
-    public static String FECHA_FUTURO2 = "2023-12-27 10:00";
+    public static String FECHA_FUTURO1 = "2023-09-29 02:00";
+    public static String FECHA_FUTURO2 = "2023-05-14 14:00";
     public static String PATTERN_FECHA = "yyyy-MM-dd HH:mm";
     public static Date FECHA_FUTURO_DATE1;
     public static Date FECHA_FUTURO_DATE2;
-    public static String HORASALIDA_NULL = "La hora de salida no puede ser nula";
+    public static String HORASALIDA_NULL = "La hora de salida es invalida!";
     public static String ID_INVALID = "El trayecto con id %s no existe";
 
     static {
@@ -40,61 +36,14 @@ public class TrayectoUtilTest {
     }
 
     public static Trayecto trayecto1 = Trayecto.builder()
-            .idTrayecto(1)
-            .idAvion(AvionUtilTest.Avion1)
-            .aeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1)
-            .aeropuertoDestino(AeropuertoUtilTest.Aeropuerto2)
-            .horaSalida(FECHA_FUTURO_DATE1)
-            .horaLlegada(FECHA_FUTURO_DATE2)
-            .idVuelo(VueloUtilTest.vuelo1)
-            .estado("A")
-            .build();
-
+            .idTrayecto(1).idAvion(AvionUtilTest.Avion1).aeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1).aeropuertoDestino(AeropuertoUtilTest.Aeropuerto2).horaSalida(FECHA_FUTURO_DATE1).horaLlegada(FECHA_FUTURO_DATE2).idVuelo(VueloUtilTest.vuelo1).estado("A").build();
     public static Trayecto trayecto2 = Trayecto.builder()
-            .idTrayecto(2)
-            .idAvion(AvionUtilTest.Avion1)
-            .aeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1)
-            .aeropuertoDestino(AeropuertoUtilTest.Aeropuerto2)
-            .horaSalida(FECHA_FUTURO_DATE1)
-            .horaLlegada(FECHA_FUTURO_DATE2)
-            .idVuelo(VueloUtilTest.vuelo1)
-            .estado("A")
-            .build();
-
+            .idTrayecto(2).idAvion(AvionUtilTest.Avion1).aeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1).aeropuertoDestino(AeropuertoUtilTest.Aeropuerto2).horaSalida(FECHA_FUTURO_DATE1).horaLlegada(FECHA_FUTURO_DATE2).idVuelo(VueloUtilTest.vuelo1).estado("A").build();
     public static TrayectoDTO trayectoDTO1 = TrayectoDTO.builder()
-            .idTrayecto(1)
-            .idAvion(AvionUtilTest.Avion1.getIdAvion())
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .horaSalida(FECHA_FUTURO_DATE1)
-            .horaLlegada(FECHA_FUTURO_DATE2)
-            .idVuelo(VueloUtilTest.vuelo1.getIdVuelo())
-            .estado("A")
-            .build();
-
-    public static TrayectoDTO trayectoDTO2 = TrayectoDTO.builder()
-            .idTrayecto(2)
-            .idAvion(AvionUtilTest.Avion1.getIdAvion())
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .horaSalida(FECHA_FUTURO_DATE1)
-            .horaLlegada(FECHA_FUTURO_DATE2)
-            .idVuelo(VueloUtilTest.vuelo1.getIdVuelo())
-            .estado("A")
-            .build();
-
+            .idTrayecto(1).idAvion(AvionUtilTest.Avion1.getIdAvion()).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto()).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto()).horaSalida(FECHA_FUTURO_DATE1).horaLlegada(FECHA_FUTURO_DATE2).idVuelo(VueloUtilTest.vuelo1.getIdVuelo()).estado("A").build();
     public static TrayectoDTO TRAYECTO_MALO = TrayectoDTO.builder()
-            .idTrayecto(1)
-            .idAvion(AvionUtilTest.Avion1.getIdAvion())
-            .idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto())
-            .idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto())
-            .horaSalida(null)
-            .horaLlegada(FECHA_FUTURO_DATE2)
-            .idVuelo(VueloUtilTest.vuelo2.getIdVuelo())
-            .estado("A")
-            .build();
+            .idTrayecto(1).idAvion(AvionUtilTest.Avion1.getIdAvion()).idAeropuertoOrigen(AeropuertoUtilTest.Aeropuerto1.getIdAeropuerto()).idAeropuertoDestino(AeropuertoUtilTest.Aeropuerto2.getIdAeropuerto()).horaSalida(null).horaLlegada(FECHA_FUTURO_DATE2).idVuelo(VueloUtilTest.vuelo2.getIdVuelo()).estado("A").build();
 
-    public static List<Trayecto> trayectos = Arrays.asList(trayecto1, trayecto2);
-    public static List<TrayectoDTO> trayectosDTOs = Arrays.asList(trayectoDTO1, trayectoDTO2);
+    public static List<TrayectoDTO> trayectosDTOs = Arrays.asList(trayectoDTO1);
     public static List<TrayectoDTO> trayectoDTO_vacio = Arrays.asList();
 }

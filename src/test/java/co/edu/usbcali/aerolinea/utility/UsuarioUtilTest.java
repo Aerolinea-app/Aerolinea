@@ -19,9 +19,9 @@ public class UsuarioUtilTest {
     public static Usuario Usuario1 = Usuario.builder()
             .idUsuario(CODIGO1).idRolUsuario(RolUsuarioUtilTest.Rolusuario1).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
     public static UsuarioDTO UsuarioDTO_Malo = UsuarioDTO.builder()
-            .idRolusuario(RolUsuarioUtilTest.CODIGO_UNO).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
+            .idRolusuario(RolUsuarioUtilTest.CODIGO1).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
     public static UsuarioDTO usuarioDTO = UsuarioDTO.builder()
-            .idUsuario(CODIGO1).idRolusuario(RolUsuarioUtilTest.CODIGO_UNO).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
+            .idUsuario(CODIGO1).idRolusuario(RolUsuarioUtilTest.CODIGO1).nombre(NOMBRE).apellido(PELLIDO).cedula(CEDULA).correo(CORREO).estado(ESTADO).build();
 
     public static List<Usuario> usuarioList = Arrays.asList(Usuario1);
     public static List<UsuarioDTO> usuariosDTOS = Arrays.asList(usuarioDTO, UsuarioDTO_Malo);

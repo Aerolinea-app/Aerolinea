@@ -8,17 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RolUsuarioUtilTest {
-    public static Integer CODIGO_UNO = 1;
-    public static Integer CODIGO_DOS = 2;
+    public static Integer CODIGO1 = 1;
     public static String DESCRIPCION1 = "Cliente";
     public static String ESTADO1 = "A";
     public static String DESCRIPTION_INVALIDA = "La descripción es invalida";
     public static String ID_INVALID = "El rol de usuario con id %s no existe";
 
     public static RolUsuario Rolusuario1 =
-            RolUsuario.builder().idRolusuario(CODIGO_UNO).descripcion(DESCRIPCION1).estado(ESTADO1).build();
+            RolUsuario.builder().idRolusuario(CODIGO1).descripcion(DESCRIPCION1).estado(ESTADO1).build();
     public static RolUsuarioDTO RolusuarioDTO =
-            RolUsuarioDTO.builder().idRolusuario(CODIGO_UNO).descripcion(DESCRIPCION1).estado(ESTADO1).build();
+            RolUsuarioDTO.builder().idRolusuario(CODIGO1).descripcion(DESCRIPCION1).estado(ESTADO1).build();
     public static RolUsuarioDTO RolusuarioDTO_No_id =
             RolUsuarioDTO.builder().descripcion(DESCRIPCION1).estado(ESTADO1).build();
     public static RolUsuarioDTO RolusuarioDTO_No_DESCRIPCION =
