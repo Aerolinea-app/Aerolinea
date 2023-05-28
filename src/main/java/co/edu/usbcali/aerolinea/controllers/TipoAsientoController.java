@@ -44,5 +44,9 @@ public class TipoAsientoController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/obtenerTipoAsientosActivos")
+    public ResponseEntity<List<TipoAsientoDTO>> obtenerTipoAsientosActivos() {
+        return new ResponseEntity(tipoAsientoService.obtenerTipoAsientosActivos(), HttpStatus.OK);
+    }
 
 }

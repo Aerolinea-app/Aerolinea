@@ -30,6 +30,10 @@ public class AvionesController {
     public ResponseEntity<List<AvionDTO>> obtenerAviones() {
         return new ResponseEntity(avionService.obtenerAviones(), HttpStatus.OK);
     }
+    @GetMapping("/obtenerAvionesActivos")
+    public ResponseEntity<List<AvionDTO>> obtenerAvionesActivos() {
+        return new ResponseEntity(avionService.obtenerAvionesActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/agregarAvion",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

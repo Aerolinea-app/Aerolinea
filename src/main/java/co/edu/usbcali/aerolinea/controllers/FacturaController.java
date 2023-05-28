@@ -33,6 +33,11 @@ public class FacturaController {
         }
     }
 
+    @GetMapping("/obtenerFacturasActivas")
+    public ResponseEntity<List<FacturaDTO>> obtenerFacturasActivas() {
+        return new ResponseEntity(facturaService.obtenerFacturasActivas(), HttpStatus.OK);
+    }
+
     @PostMapping(path = "/agregarFactura",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -33,6 +33,11 @@ public class AeropuertoController {
         return new ResponseEntity(aeropuertoService.obtenerAeropuertos(), HttpStatus.OK);
     }
 
+    @GetMapping("/obtenerAeropuertosActivos")
+    public ResponseEntity<List<AeropuertoDTO>> obtenerAeropuertosActivos() {
+        return new ResponseEntity(aeropuertoService.obtenerAeropuertosActivos(), HttpStatus.OK);
+    }
+
     @PostMapping(path = "/agregarAeropuerto",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

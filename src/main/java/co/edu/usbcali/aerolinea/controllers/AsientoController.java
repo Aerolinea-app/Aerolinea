@@ -31,6 +31,10 @@ public class AsientoController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/obtenerAsientosActivos")
+    public ResponseEntity<List<AsientoDTO>> obtenerAsientosActivos() {
+        return new ResponseEntity(asientoService.obtenerAsientosActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/agregarAsiento",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

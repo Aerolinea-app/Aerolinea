@@ -33,6 +33,10 @@ public class RolUsuarioController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/obtenerRolUsuariosActivos")
+    public ResponseEntity<List<RolUsuarioDTO>> obtenerRolUsuariosActivos() {
+        return new ResponseEntity(rolUsuarioService.obtenerRolUsuariosActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/guardarRolUsuario",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -30,6 +30,10 @@ public class VueloController{
     public ResponseEntity<List<VueloDTO>> obtenerVuelos() {
         return new ResponseEntity(vueloService.obtenerVuelos(), HttpStatus.OK);
     }
+    @GetMapping("/obtenerVuelosActivos")
+    public ResponseEntity<List<VueloDTO>> obtenerVuelosActivos(){
+        return new ResponseEntity(vueloService.obtenerVuelosActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/guardarVuelo",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

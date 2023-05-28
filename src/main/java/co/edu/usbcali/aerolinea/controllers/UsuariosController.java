@@ -31,6 +31,10 @@ public class UsuariosController {
     public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios() {
         return new ResponseEntity(usuarioService.obtenerUsuarios(), HttpStatus.OK);
     }
+    @GetMapping("/obtenerUsuariosActivos")
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosActivos() {
+        return new ResponseEntity(usuarioService.obtenerUsuariosActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/agregarUsuario",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

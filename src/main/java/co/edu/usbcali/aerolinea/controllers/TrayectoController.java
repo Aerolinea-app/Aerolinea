@@ -41,4 +41,8 @@ public class TrayectoController {
     public ResponseEntity<List<TrayectoDTO>> obtenerTrayectos() {
         return new ResponseEntity(trayectoService.obtenerTrayectos(), HttpStatus.OK);
     }
+    @GetMapping("/obtenerTrayectosActivos")
+    public ResponseEntity<List<TrayectoDTO>> obtenerTrayectosActivos() {
+        return new ResponseEntity(trayectoService.obtenerTrayectosActivos(), HttpStatus.OK);
+    }
 }

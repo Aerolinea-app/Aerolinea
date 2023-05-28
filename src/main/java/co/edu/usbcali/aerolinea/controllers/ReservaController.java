@@ -33,6 +33,10 @@ public class ReservaController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/obtenerReservasActivas")
+    public ResponseEntity<List<ReservaDTO>> obtenerReservasActivas() {
+        return new ResponseEntity(reservaService.obtenerReservasActivas(), HttpStatus.OK);
+    }
     @GetMapping("/obtenerReserva/{idReserva}")
     public ResponseEntity<ReservaDTO> obtenerReserva(@PathVariable("idReserva") Integer idReserva) {
         try {
