@@ -1,11 +1,9 @@
 package co.edu.usbcali.aerolinea.controllers;
 
-import co.edu.usbcali.aerolinea.dto.AeropuertoDTO;
-import co.edu.usbcali.aerolinea.dto.AvionDTO;
-import co.edu.usbcali.aerolinea.dto.MensajeDTO;
-import co.edu.usbcali.aerolinea.dto.RolUsuarioDTO;
+import co.edu.usbcali.aerolinea.dto.*;
 import co.edu.usbcali.aerolinea.services.Interfaces.AeropuertoService;
 import co.edu.usbcali.aerolinea.services.Interfaces.RolUsuarioService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rolUsuario")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
+@Slf4j
 public class RolUsuarioController {
     private RolUsuarioService rolUsuarioService;
     public RolUsuarioController(RolUsuarioService rolUsuarioService) {
@@ -47,5 +47,25 @@ public class RolUsuarioController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PutMapping(path = "/updateRolUsuario",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateRolUsuario(@RequestBody RolUsuarioDTO rolUsuarioDTO) {
+        try {
+            return new ResponseEntity(rolUsuarioService.updateRolUsuario(rolUsuarioDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteRolUsuario/{idRolUsuario}")
+    public ResponseEntity deleteRolUsuario(@PathVariable("idRolUsuario") Integer idRolUsuario) {
+        try {
+            return new ResponseEntity(rolUsuarioService.deleteRolUsuario(idRolUsuario), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

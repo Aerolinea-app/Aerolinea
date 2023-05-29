@@ -1,6 +1,7 @@
 package co.edu.usbcali.aerolinea.controllers;
 
 import co.edu.usbcali.aerolinea.dto.MensajeDTO;
+import co.edu.usbcali.aerolinea.dto.TipoAsientoDTO;
 import co.edu.usbcali.aerolinea.dto.TrayectoDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.TrayectoService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/trayecto")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @Slf4j
 public class TrayectoController {
     private final TrayectoService trayectoService;
@@ -44,5 +46,25 @@ public class TrayectoController {
     @GetMapping("/obtenerTrayectosActivos")
     public ResponseEntity<List<TrayectoDTO>> obtenerTrayectosActivos() {
         return new ResponseEntity(trayectoService.obtenerTrayectosActivos(), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/updateTrayecto",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateTrayecto(@RequestBody TrayectoDTO trayectoDTO) {
+        try {
+            return new ResponseEntity(trayectoService.updateTrayecto(trayectoDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteTrayecto/{idTrayecto}")
+    public ResponseEntity deleteTrayecto(@PathVariable("idTrayecto") Integer idTrayecto) {
+        try {
+            return new ResponseEntity(trayectoService.deleteTrayecto(idTrayecto), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

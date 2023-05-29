@@ -1,5 +1,6 @@
 package co.edu.usbcali.aerolinea.controllers;
 
+import co.edu.usbcali.aerolinea.dto.AsientoDTO;
 import co.edu.usbcali.aerolinea.dto.AvionDTO;
 import co.edu.usbcali.aerolinea.dto.MensajeDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.AvionService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/aviones")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @Slf4j
 public class AvionesController {
     private AvionService avionService;
@@ -40,6 +42,25 @@ public class AvionesController {
     public ResponseEntity agregarAvion(@RequestBody AvionDTO avionDTO) {
         try {
             return new ResponseEntity(avionService.agregarAvion(avionDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PutMapping(path = "/updateAvion",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAvion(@RequestBody AvionDTO avionDTO) {
+        try {
+            return new ResponseEntity(avionService.updateAvion(avionDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteAvion/{idAvion}")
+    public ResponseEntity deleteAvion(@PathVariable("idAvion") Integer idAvion) {
+        try {
+            return new ResponseEntity(avionService.deleteAvion(idAvion), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }

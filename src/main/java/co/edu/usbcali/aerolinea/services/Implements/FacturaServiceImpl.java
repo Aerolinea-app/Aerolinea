@@ -1,7 +1,9 @@
 package co.edu.usbcali.aerolinea.services.Implements;
 
+import co.edu.usbcali.aerolinea.domain.Aeropuerto;
 import co.edu.usbcali.aerolinea.domain.Factura;
 import co.edu.usbcali.aerolinea.domain.Usuario;
+import co.edu.usbcali.aerolinea.mappers.AeropuertoMapper;
 import co.edu.usbcali.aerolinea.repository.FacturaRepository;
 import co.edu.usbcali.aerolinea.repository.UsuarioRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.FacturaService;
@@ -12,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -60,5 +63,39 @@ public class FacturaServiceImpl implements FacturaService {
     @Override
     public List<FacturaDTO> obtenerFacturasActivas() {
         return FacturaMapper.domainToDTOList(facturaRepository.findAllByEstado("A"));
+    }
+
+    @Override
+    public FacturaDTO updateFactura(FacturaDTO facturaDTO) throws Exception {
+        if (facturaDTO == null) {
+            throw new Exception("La factura es invalida!");
+        }
+        if (facturaDTO.getIdFactura() == null ) {
+            throw new Exception("El id de la factura es invalido!");
+        }
+        if (facturaDTO.getEstado() == null || facturaDTO.getEstado().isBlank() || facturaDTO.getEstado().trim().isEmpty()) {
+            throw new Exception("El estado es invalido!");
+        }
+        Factura factura = FacturaMapper.dtoToDomain(facturaDTO);
+
+        Usuario usuario = usuarioRepository.getReferenceById(facturaDTO.getIdUsuario());
+        factura.setIdUsuario(usuario);
+
+        return FacturaMapper.domainToDTO(facturaRepository.save(factura));
+    }
+
+    @Override
+    public FacturaDTO deleteFactura(Integer id) throws Exception {
+        Optional<Factura> facturaOptional = facturaRepository.findById(id);
+
+        if (facturaOptional.isPresent()) {
+
+            Factura factura = facturaOptional.get();
+            facturaRepository.deleteById(id);
+
+            return FacturaMapper.domainToDTO(factura);
+        } else {
+            throw new Exception("No se encontró la factura con ese id!");
+        }
     }
 }

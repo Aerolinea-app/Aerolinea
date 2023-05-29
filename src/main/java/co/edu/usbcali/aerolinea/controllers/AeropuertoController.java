@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/aeropuerto")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @Slf4j
 public class AeropuertoController {
     private AeropuertoService aeropuertoService;
@@ -44,6 +45,26 @@ public class AeropuertoController {
     public ResponseEntity agregarAeropuerto(@RequestBody AeropuertoDTO aeropuertoDTO) {
         try {
             return new ResponseEntity(aeropuertoService.agregarAeropuerto(aeropuertoDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(path = "/updateAeropuerto",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateAeropuerto(@RequestBody AeropuertoDTO aeropuertoDTO) {
+        try {
+            return new ResponseEntity(aeropuertoService.updateAeropuerto(aeropuertoDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteAeropuerto/{idAeropuerto}")
+    public ResponseEntity deleteAeropuerto(@PathVariable("idAeropuerto") Integer idAeropuerto) {
+        try {
+            return new ResponseEntity(aeropuertoService.deleteAeropuerto(idAeropuerto), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,7 @@
 package co.edu.usbcali.aerolinea.controllers;
 
 import co.edu.usbcali.aerolinea.dto.MensajeDTO;
+import co.edu.usbcali.aerolinea.dto.RolUsuarioDTO;
 import co.edu.usbcali.aerolinea.dto.TipoAsientoDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.TipoAsientoService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tipoasiento")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
 @Slf4j
 public class TipoAsientoController {
     private final TipoAsientoService tipoAsientoService;
@@ -47,6 +49,25 @@ public class TipoAsientoController {
     @GetMapping("/obtenerTipoAsientosActivos")
     public ResponseEntity<List<TipoAsientoDTO>> obtenerTipoAsientosActivos() {
         return new ResponseEntity(tipoAsientoService.obtenerTipoAsientosActivos(), HttpStatus.OK);
+    }
+    @PutMapping(path = "/updateTipoAsiento",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateTipoAsiento(@RequestBody TipoAsientoDTO tipoAsientoDTO) {
+        try {
+            return new ResponseEntity(tipoAsientoService.updateTipoAsiento(tipoAsientoDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteTipoAsiento/{idTipoAsiento}")
+    public ResponseEntity deleteTipoAsiento(@PathVariable("idTipoAsiento") Integer idTipoAsiento) {
+        try {
+            return new ResponseEntity(tipoAsientoService.deleteTipoAsiento(idTipoAsiento), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
