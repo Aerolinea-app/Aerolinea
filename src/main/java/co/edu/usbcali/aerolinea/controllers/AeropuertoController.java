@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/aeropuerto")
-@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @Slf4j
 public class AeropuertoController {
     private AeropuertoService aeropuertoService;
@@ -49,7 +49,6 @@ public class AeropuertoController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
-
     @PutMapping(path = "/updateAeropuerto",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +59,6 @@ public class AeropuertoController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
-
     @DeleteMapping(value = "/deleteAeropuerto/{idAeropuerto}")
     public ResponseEntity deleteAeropuerto(@PathVariable("idAeropuerto") Integer idAeropuerto) {
         try {

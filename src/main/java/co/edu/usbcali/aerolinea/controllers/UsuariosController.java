@@ -1,7 +1,6 @@
 package co.edu.usbcali.aerolinea.controllers;
 
 import co.edu.usbcali.aerolinea.dto.MensajeDTO;
-import co.edu.usbcali.aerolinea.dto.TrayectoDTO;
 import co.edu.usbcali.aerolinea.dto.UsuarioDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @Slf4j
 public class UsuariosController {
     private UsuarioService usuarioService;

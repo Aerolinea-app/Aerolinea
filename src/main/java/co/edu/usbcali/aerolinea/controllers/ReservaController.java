@@ -1,6 +1,5 @@
 package co.edu.usbcali.aerolinea.controllers;
 
-import co.edu.usbcali.aerolinea.dto.FacturaDTO;
 import co.edu.usbcali.aerolinea.dto.MensajeDTO;
 import co.edu.usbcali.aerolinea.dto.ReservaDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.ReservaService;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reserva")
-@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT })
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT , RequestMethod.DELETE })
 @Slf4j
 public class ReservaController {
     private final ReservaService reservaService;

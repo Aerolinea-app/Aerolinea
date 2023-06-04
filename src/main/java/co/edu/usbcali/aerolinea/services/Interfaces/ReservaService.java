@@ -1,7 +1,5 @@
 package co.edu.usbcali.aerolinea.services.Interfaces;
 
-import co.edu.usbcali.aerolinea.dto.AeropuertoDTO;
-import co.edu.usbcali.aerolinea.dto.FacturaDTO;
 import co.edu.usbcali.aerolinea.dto.ReservaDTO;
 
 import java.util.List;
