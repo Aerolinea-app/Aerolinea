@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reserva")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT , RequestMethod.DELETE })
 @Slf4j
 public class ReservaController {
     private final ReservaService reservaService;
@@ -33,10 +34,33 @@ public class ReservaController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/obtenerReservasActivas")
+    public ResponseEntity<List<ReservaDTO>> obtenerReservasActivas() {
+        return new ResponseEntity(reservaService.obtenerReservasActivas(), HttpStatus.OK);
+    }
     @GetMapping("/obtenerReserva/{idReserva}")
     public ResponseEntity<ReservaDTO> obtenerReserva(@PathVariable("idReserva") Integer idReserva) {
         try {
             return new ResponseEntity(reservaService.obtenerReserva(idReserva), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PutMapping(path = "/updateReserva",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateReserva(@RequestBody ReservaDTO reservaDTO) {
+        try {
+            return new ResponseEntity(reservaService.updateReserva(reservaDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteReserva/{idReserva}")
+    public ResponseEntity deleteReserva(@PathVariable("idReserva") Integer idReserva) {
+        try {
+            return new ResponseEntity(reservaService.deleteReserva(idReserva), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }

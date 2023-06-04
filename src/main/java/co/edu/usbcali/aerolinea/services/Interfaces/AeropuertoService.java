@@ -9,4 +9,7 @@ public interface AeropuertoService {
     AeropuertoDTO agregarAeropuerto(AeropuertoDTO aeropuertoDTO) throws Exception;
     AeropuertoDTO obtenerAeropuerto(Integer id) throws Exception;
     List<AeropuertoDTO> obtenerAeropuertos();
+    List<AeropuertoDTO> obtenerAeropuertosActivos();
+    AeropuertoDTO updateAeropuerto(AeropuertoDTO aeropuertoDTO) throws Exception;
+    AeropuertoDTO deleteAeropuerto(Integer id) throws Exception;
 }

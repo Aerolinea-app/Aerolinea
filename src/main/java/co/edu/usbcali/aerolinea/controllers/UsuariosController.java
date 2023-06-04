@@ -13,13 +13,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @Slf4j
 public class UsuariosController {
     private UsuarioService usuarioService;
     public UsuariosController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    @GetMapping("/obtenerUsuario")
+    @GetMapping("/obtenerUsuario/{idUsuario}")
     public ResponseEntity<UsuarioDTO> obtenerUsuario(@PathVariable("idUsuario") Integer idUsuario) {
         try {
             return new ResponseEntity(usuarioService.obtenerUsuario(idUsuario), HttpStatus.OK);
@@ -31,6 +32,10 @@ public class UsuariosController {
     public ResponseEntity<List<UsuarioDTO>> obtenerUsuarios() {
         return new ResponseEntity(usuarioService.obtenerUsuarios(), HttpStatus.OK);
     }
+    @GetMapping("/obtenerUsuariosActivos")
+    public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosActivos() {
+        return new ResponseEntity(usuarioService.obtenerUsuariosActivos(), HttpStatus.OK);
+    }
     @PostMapping(path = "/agregarUsuario",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,5 +46,24 @@ public class UsuariosController {
             return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
         }
 
+    }
+    @PutMapping(path = "/updateUsuario",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updateUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        try {
+            return new ResponseEntity(usuarioService.updateUsuario(usuarioDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "/deleteUsuario/{idUsuario}")
+    public ResponseEntity deleteTrayecto(@PathVariable("idUsuario") Integer idUsuario) {
+        try {
+            return new ResponseEntity(usuarioService.deleteUsuario(idUsuario), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(MensajeDTO.builder().mensaje(e.getMessage()).build(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

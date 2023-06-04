@@ -4,6 +4,7 @@ import co.edu.usbcali.aerolinea.domain.Aeropuerto;
 import co.edu.usbcali.aerolinea.dto.AeropuertoDTO;
 import co.edu.usbcali.aerolinea.repository.AeropuertoRepository;
 import co.edu.usbcali.aerolinea.services.Interfaces.AeropuertoService;
+import co.edu.usbcali.aerolinea.utility.AeropuertoUtilTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
+import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class AeropuertoServiceImplTest {
     @Autowired
@@ -53,7 +55,7 @@ public class AeropuertoServiceImplTest {
                 .nombre("FlowAir")
                 .iata("FAR")
                 .ubicacion("Cali")
-                .estado("D")
+                .estado("I")
                 .build();
 
         Mockito.when(aeropuertoRepository.existsById(1)).thenReturn(true);
@@ -63,7 +65,7 @@ public class AeropuertoServiceImplTest {
         AeropuertoDTO aeropuertoDTO = aeropuertoService.obtenerAeropuerto(1);
 
         // Verificación del resultado esperado
-        assertEquals("D", aeropuertoDTO.getEstado());
+        assertEquals("I", aeropuertoDTO.getEstado());
     }
 
     //Prueba unitaria Buena
@@ -90,11 +92,10 @@ public class AeropuertoServiceImplTest {
 
         List<AeropuertoDTO> aeropuertos = aeropuertoService.obtenerAeropuertos();
 
-        assertEquals(2, aeropuertos.size());
-        assertEquals("VivaAir", aeropuertos.get(1).getNombre());
+        assertEquals(1, aeropuertos.size());
+        assertEquals("VivaAir", aeropuertos.get(0   ).getNombre());
 
     }
-
 
     //Prueba unitaria mala
     @Test
@@ -108,6 +109,26 @@ public class AeropuertoServiceImplTest {
 
         assertTrue(aeropuertos.isEmpty());
     }
+    //Prueba unitaria buena
+    @Test
+    void agregarAeropuerto() throws Exception {
+        given(aeropuertoRepository.existsById(AeropuertoUtilTest.CODIGO1)).willReturn(true);
+        given(aeropuertoRepository.getReferenceById(AeropuertoUtilTest.CODIGO1)).willReturn(AeropuertoUtilTest.Aeropuerto1);
+        given(aeropuertoRepository.save(AeropuertoUtilTest.Aeropuerto1)).willReturn(AeropuertoUtilTest.Aeropuerto1);
+        AeropuertoDTO aeropuertoGuardado = aeropuertoService.agregarAeropuerto(AeropuertoUtilTest.AeropuertoDTO1);
 
+        assertEquals(AeropuertoUtilTest.CODIGO1, aeropuertoGuardado.getIdAeropuerto());
+        assertEquals(AeropuertoUtilTest.IATA1, aeropuertoGuardado.getIata());
+    }
+    //Prueba unitaria mala
+    @Test
+    void agregarAeropuerto_Exception(){
+        Exception exception = assertThrows(Exception.class, () ->
+                aeropuertoService.agregarAeropuerto(AeropuertoUtilTest.AeropuertoDTO2_No_id));
+
+        String expectedMessage = "El id del aeropuerto es obligatorio!";
+        assertEquals(expectedMessage, exception.getMessage());
+
+    }
 
 }
