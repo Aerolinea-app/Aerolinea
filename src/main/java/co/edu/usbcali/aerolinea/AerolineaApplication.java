@@ -9,5 +9,4 @@ public class AerolineaApplication {
 		SpringApplication.run(AerolineaApplication.class, args);
 		System.out.println("Server Activo :D");
 	}
-
 }
