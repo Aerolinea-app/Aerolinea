@@ -34,6 +34,7 @@ public class VueloServicelmpl implements VueloService {
     }
     @Override
     public VueloDTO guardarVuelo(VueloDTO vueloDTO) throws Exception {
+
         if (vueloDTO == null) {
             throw new Exception("El vuelo no puede ser nulo!");
         }

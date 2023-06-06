@@ -35,8 +35,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuarioDTO == null) {
             throw new Exception("El usuario es invalido!");
         }
-        if (usuarioDTO.getCedula() == null || usuarioDTO.getCedula().isBlank() || usuarioDTO.getNombre().trim().isEmpty()) {
-            throw new Exception("La cédula del usuario es invalida!");
+        if (usuarioDTO.getCedula() == null || usuarioDTO.getCedula().isBlank() || !usuarioDTO.getCedula().matches("\\d+") || usuarioDTO.getCedula().trim().isEmpty()) {
+            throw new Exception("La cédula del usuario es inválida!");
         }
         if (usuarioDTO.getNombre() == null || usuarioDTO.getNombre().isBlank() || usuarioDTO.getNombre().trim().isEmpty()) {
             throw new Exception("El nombre del usuario es invalido!");

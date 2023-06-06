@@ -4,6 +4,7 @@ import co.edu.usbcali.aerolinea.dto.MensajeDTO;
 import co.edu.usbcali.aerolinea.dto.UsuarioDTO;
 import co.edu.usbcali.aerolinea.dto.VueloDTO;
 import co.edu.usbcali.aerolinea.services.Interfaces.VueloService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/vuelo")
 @CrossOrigin(origins = "*", methods= { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE })
 @Slf4j
+@JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss.SSS")
 public class VueloController{
     private VueloService vueloService;
     public VueloController(VueloService vueloService) {

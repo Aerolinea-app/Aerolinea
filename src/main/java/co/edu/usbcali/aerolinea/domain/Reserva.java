@@ -36,7 +36,6 @@ public class Reserva {
     @Column(name = "estado_pago", nullable = false, length = 1)
     private String estadoPago;
     @Column(name = "fecha", nullable = false)
-    @CreationTimestamp
     private Date fecha;
     @Column(name = "estado", nullable = false, length = 1)
     private String estado;
