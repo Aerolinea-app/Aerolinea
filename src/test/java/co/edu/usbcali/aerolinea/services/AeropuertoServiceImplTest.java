@@ -92,8 +92,8 @@ public class AeropuertoServiceImplTest {
 
         List<AeropuertoDTO> aeropuertos = aeropuertoService.obtenerAeropuertos();
 
-        assertEquals(1, aeropuertos.size());
-        assertEquals("VivaAir", aeropuertos.get(0   ).getNombre());
+        assertEquals(2, aeropuertos.size());
+        assertEquals("FlowAir", aeropuertos.get(0).getNombre());
 
     }
 
