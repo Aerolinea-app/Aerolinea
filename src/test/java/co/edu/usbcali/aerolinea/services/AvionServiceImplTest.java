@@ -116,7 +116,7 @@ public class AvionServiceImplTest {
     void agregarAvion_malo(){
         Exception exception = assertThrows(Exception.class, () -> avionService.agregarAvion(AvionUtilTest.AvionDTO2_No_id));
 
-        String expectedMessage = "El id del avion es invalido!";
+        String expectedMessage = "El id del avion es obligatorio!";
         assertEquals(expectedMessage, exception.getMessage());
 
     }
